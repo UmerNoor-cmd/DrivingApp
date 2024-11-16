@@ -35,7 +35,6 @@
             Previous = new Button();
             Next = new Button();
             Backform = new Button();
-            aaqewaewra = new Button();
             ((System.ComponentModel.ISupportInitialize)Top_Pic).BeginInit();
             SuspendLayout();
             // 
@@ -98,14 +97,11 @@
             Backform.UseVisualStyleBackColor = true;
             Backform.Click += Backform_Click;
             // 
-
-            // 
             // PracticePage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(aaqewaewra);
             Controls.Add(Backform);
             Controls.Add(Next);
             Controls.Add(Previous);
@@ -127,6 +123,5 @@
         private Button Previous;
         private Button Next;
         private Button Backform;
-        private Button aaqewaewra;
     }
 }
