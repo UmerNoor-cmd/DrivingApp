@@ -13,5 +13,13 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
+        private void Mock_test_Click(object sender, EventArgs e)
+        {
+            PracticePage nextForm = new PracticePage();
+            nextForm.Show();
+            this.Hide();
+        }
     }
+
 }
+

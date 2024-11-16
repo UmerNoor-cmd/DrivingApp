@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             Practice = new Button();
-            button2 = new Button();
+            Mock_test = new Button();
             button3 = new Button();
             button4 = new Button();
             SuspendLayout();
@@ -46,14 +46,17 @@
             Practice.UseVisualStyleBackColor = false;
             Practice.Click += Practice_Click;
             // 
-            // button2
+            // Mock_test
             // 
-            button2.Location = new Point(499, 105);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 78);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            Mock_test.BackColor = Color.Cyan;
+            Mock_test.Cursor = Cursors.Hand;
+            Mock_test.Location = new Point(499, 105);
+            Mock_test.Name = "Mock_test";
+            Mock_test.Size = new Size(75, 78);
+            Mock_test.TabIndex = 1;
+            Mock_test.Text = "Mock Exam";
+            Mock_test.UseVisualStyleBackColor = false;
+            Mock_test.Click += this.Mock_test_Click;
             // 
             // button3
             // 
@@ -80,7 +83,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(button4);
             Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(Mock_test);
             Controls.Add(Practice);
             Name = "MainPage";
             Text = "Main Page";
@@ -90,7 +93,7 @@
         #endregion
 
         private Button Practice;
-        private Button button2;
+        private Button Mock_test;
         private Button button3;
         private Button button4;
     }
