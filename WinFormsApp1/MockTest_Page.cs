@@ -73,23 +73,23 @@ namespace WinFormsApp1
         {
             Controls.Clear();
 
-            Label mockTestIntroLabel = new Label
+            Label introLabel = new Label
             {
                 Text = "Welcome to the Mock Test! You will be given 10 questions.",
                 AutoSize = true,
                 Font = new Font("Arial", 12, FontStyle.Bold),
                 Location = new Point((ClientSize.Width - 300) / 2, 50)
             };
-            Controls.Add(mockTestIntroLabel);
+            Controls.Add(introLabel);
 
-            Button mockTestStartButton = new Button
+            Button startButton = new Button
             {
                 Text = "Start Test",
                 AutoSize = true,
                 Location = new Point((ClientSize.Width - 100) / 2, 100)
             };
-            mockTestStartButton.Click += StartQuizButton_Click;
-            Controls.Add(mockTestStartButton);
+            startButton.Click += StartQuizButton_Click;
+            Controls.Add(startButton);
         }
 
         private void StartQuizButton_Click(object? sender, EventArgs e)
