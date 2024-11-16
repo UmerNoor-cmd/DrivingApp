@@ -56,7 +56,7 @@
             Mock_test.TabIndex = 1;
             Mock_test.Text = "Mock Exam";
             Mock_test.UseVisualStyleBackColor = false;
-            Mock_test.Click += this.Mock_test_Click;
+            Mock_test.Click += this.MockTest_Page_Click;
             // 
             // button3
             // 
