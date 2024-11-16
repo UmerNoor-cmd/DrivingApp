@@ -31,7 +31,8 @@
             Practice = new Button();
             Mock_test = new Button();
             button3 = new Button();
-            button4 = new Button();
+            Signs = new Button();
+            Progress = new Button();
             SuspendLayout();
             // 
             // Practice
@@ -56,7 +57,7 @@
             Mock_test.TabIndex = 1;
             Mock_test.Text = "Mock Exam";
             Mock_test.UseVisualStyleBackColor = false;
-            Mock_test.Click += this.Mock_test_Click;
+            Mock_test.Click += Mock_test_Click;
             // 
             // button3
             // 
@@ -67,21 +68,33 @@
             button3.Text = "button3";
             button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // Signs
             // 
-            button4.Location = new Point(248, 215);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 78);
-            button4.TabIndex = 3;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            Signs.BackColor = Color.Coral;
+            Signs.Location = new Point(248, 215);
+            Signs.Name = "Signs";
+            Signs.Size = new Size(75, 78);
+            Signs.TabIndex = 3;
+            Signs.Text = "Traffic Signs";
+            Signs.UseVisualStyleBackColor = false;
+            Signs.Click += Signs_Click;
+            // 
+            // Progress
+            // 
+            Progress.Location = new Point(693, 15);
+            Progress.Name = "Progress";
+            Progress.Size = new Size(75, 23);
+            Progress.TabIndex = 4;
+            Progress.Text = "Progress";
+            Progress.UseVisualStyleBackColor = true;
             // 
             // MainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button4);
+            Controls.Add(Progress);
+            Controls.Add(Signs);
             Controls.Add(button3);
             Controls.Add(Mock_test);
             Controls.Add(Practice);
@@ -96,6 +109,7 @@
         private Button Practice;
         private Button Mock_test;
         private Button button3;
-        private Button button4;
+        private Button Signs;
+        private Button Progress;
     }
 }

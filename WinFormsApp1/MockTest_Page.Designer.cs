@@ -29,18 +29,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            BacktoForm = new Button();
             SuspendLayout();
+            // 
+            // BacktoForm
+            // 
+            BacktoForm.Location = new Point(12, 12);
+            BacktoForm.Name = "BacktoForm";
+            BacktoForm.Size = new Size(30, 25);
+            BacktoForm.TabIndex = 0;
+            BacktoForm.Text = "<";
+            BacktoForm.UseVisualStyleBackColor = true;
+            BacktoForm.Click += BacktoForm_Click;
             // 
             // MockTest_Page
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(BacktoForm);
             Name = "MockTest_Page";
             Text = "Mock Test Page";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button BacktoForm;
     }
 }

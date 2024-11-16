@@ -89,6 +89,10 @@ namespace WinFormsApp1
                 Location = new Point((ClientSize.Width - 100) / 2, 100)
             };
             startButton.Click += StartQuizButton_Click;
+
+            Controls.Add(BacktoForm);
+
+            
             Controls.Add(startButton);
         }
 
@@ -234,6 +238,13 @@ namespace WinFormsApp1
             finishButton.Location = new Point((ClientSize.Width - finishButton.Width) / 2, scoreLabel.Bottom + 20);
             finishButton.Click += (s, e) => ShowIntroduction();
             Controls.Add(finishButton);
+        }
+
+        private void BacktoForm_Click(object sender, EventArgs e)
+        {
+            MainPage nextForm = new MainPage();
+            nextForm.Show();
+            this.Hide();
         }
     }
     //completed
