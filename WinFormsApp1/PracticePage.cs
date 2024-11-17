@@ -7,36 +7,80 @@ namespace WinFormsApp1
 {
     public partial class PracticePage : Form
     {
-        private List<Question> questions;
+        private List<Test> tests; // List of tests
+        private Test? selectedTest; // The randomly selected test
+        private Test? previousTest; // Keep track of the last selected test
         private int currentQuestionIndex = 0;
         private int score = 0;
         private Label trackerLabel; // Label for tracking question number
         private Button previousButton; // Previous button
         private Button nextButton; // Next button
+        private Label testNameLabel; // Label to display the test name
+
 
         public PracticePage()
         {
             InitializeComponent();
 
-            questions = new List<Question>
+            // Create tests
+            tests = new List<Test>
             {
-                new Question
+                new Test
                 {
-                    Text = "What is the capital of France?",
-                    Options = new List<string> { "Berlin", "Madrid", "Paris", "Rome" },
-                    CorrectOptionIndex = 2
+                    Questions = new List<Question>
+                    {
+                        new Question
+                        {
+                            Text = "What is the capital of France?",
+                            Options = new List<string> { "Berlin", "Madrid", "Paris", "Rome" },
+                            CorrectOptionIndex = 2
+                        },
+                        new Question
+                        {
+                            Text = "Which planet is known as the Red Planet?",
+                            Options = new List<string> { "Earth", "Mars", "Jupiter", "Saturn" },
+                            CorrectOptionIndex = 1
+                        },
+                        // Add more unique questions for this test
+                    }
                 },
-                new Question
+                new Test
                 {
-                    Text = "Which planet is known as the Red Planet?",
-                    Options = new List<string> { "Earth", "Mars", "Jupiter", "Saturn" },
-                    CorrectOptionIndex = 1
+                    Questions = new List<Question>
+                    {
+                        new Question
+                        {
+                            Text = "What is the largest ocean on Earth?",
+                            Options = new List<string> { "Atlantic", "Indian", "Arctic", "Pacific" },
+                            CorrectOptionIndex = 3
+                        },
+                        new Question
+                        {
+                            Text = "What is the square root of 64?",
+                            Options = new List<string> { "6", "7", "8", "9" },
+                            CorrectOptionIndex = 2
+                        },
+                        // Add more unique questions for this test
+                    }
                 },
-                new Question
+                new Test
                 {
-                    Text = "What is the largest ocean on Earth?",
-                    Options = new List<string> { "Atlantic", "Indian", "Arctic", "Pacific" },
-                    CorrectOptionIndex = 3
+                    Questions = new List<Question>
+                    {
+                        new Question
+                        {
+                            Text = "What is the chemical symbol for water?",
+                            Options = new List<string> { "O2", "CO2", "H2O", "NaCl" },
+                            CorrectOptionIndex = 2
+                        },
+                        new Question
+                        {
+                            Text = "Which continent is known as the Dark Continent?",
+                            Options = new List<string> { "Africa", "Asia", "Europe", "South America" },
+                            CorrectOptionIndex = 0
+                        },
+                        // Add more unique questions for this test
+                    }
                 }
             };
 
@@ -47,6 +91,15 @@ namespace WinFormsApp1
                 Font = new Font("Arial", 10, FontStyle.Bold),
                 TextAlign = ContentAlignment.MiddleRight
             };
+
+            testNameLabel = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                Location = new Point(10, 10) // Top-left corner
+            };
+            Controls.Add(testNameLabel);
+
 
             // Initialize navigation buttons
             previousButton = new Button
@@ -74,40 +127,58 @@ namespace WinFormsApp1
             // Add introduction label
             Controls.Add(introLabel);
 
-            // Add introduction label
+            // Add introduction image
             Controls.Add(Top_Pic);
 
-            //Button to go back to previous form
+            // Button to go back to previous form
             Controls.Add(Backform);
 
             startButton.Click += StartQuizButton_Click;
             Controls.Add(startButton);
         }
 
-
         private void StartQuizButton_Click(object? sender, EventArgs e)
         {
+            // Randomly select a test that is not the same as the previous one
+            Random random = new Random();
+            Test? newTest;
+            do
+            {
+                newTest = tests[random.Next(tests.Count)];
+            } while (newTest == previousTest); // Repeat until a different test is selected
+
+            previousTest = newTest; // Update the previous test
+            selectedTest = newTest;
+            currentQuestionIndex = 0;
+            score = 0;
+
+            // Update the test name label
+            int testIndex = tests.IndexOf(selectedTest) + 1; // Test index starts from 1
+            testNameLabel.Text = $"Test {testIndex}";
+
             LoadQuestion();
         }
 
+
         private void LoadQuestion()
         {
-            if (currentQuestionIndex >= questions.Count)
+            if (selectedTest == null || currentQuestionIndex >= selectedTest.Questions.Count)
             {
                 ShowScore();
                 return;
             }
 
-            // Clear the form
+            // Clear other controls but retain the testNameLabel
             Controls.Clear();
+            Controls.Add(testNameLabel);
 
             // Display tracker for question number
-            trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {questions.Count}";
+            trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {selectedTest.Questions.Count}";
             trackerLabel.Location = new Point(ClientSize.Width - trackerLabel.Width - 20, 10); // Top-right corner
             Controls.Add(trackerLabel);
 
             // Display the current question
-            Question currentQuestion = questions[currentQuestionIndex];
+            Question currentQuestion = selectedTest.Questions[currentQuestionIndex];
 
             Label questionLabel = new Label
             {
@@ -140,6 +211,7 @@ namespace WinFormsApp1
             Controls.Add(nextButton);
         }
 
+
         private void Previous_Click(object? sender, EventArgs e)
         {
             if (currentQuestionIndex > 0)
@@ -157,7 +229,7 @@ namespace WinFormsApp1
                 if (control is RadioButton radioButton && radioButton.Checked)
                 {
                     int selectedOption = (int)radioButton.Tag;
-                    if (selectedOption == questions[currentQuestionIndex].CorrectOptionIndex)
+                    if (selectedOption == selectedTest?.Questions[currentQuestionIndex].CorrectOptionIndex)
                     {
                         score++; // Increment the score for a correct answer
                     }
@@ -180,7 +252,7 @@ namespace WinFormsApp1
             // Display the final score
             Label scoreLabel = new Label
             {
-                Text = $"Quiz Completed!\nYour score: {score} out of {questions.Count}",
+                Text = $"Quiz Completed!\nYour score: {score} out of {selectedTest?.Questions.Count}",
                 AutoSize = true
             };
             scoreLabel.Location = new Point((ClientSize.Width - scoreLabel.Width) / 2, 100);
@@ -204,10 +276,13 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
-
-
     }
-    //completed
+
+    // Helper class to represent a test
+    public class Test
+    {
+        public List<Question> Questions { get; set; } = new List<Question>();
+    }
 
     // Helper class to represent a question
     public class Question

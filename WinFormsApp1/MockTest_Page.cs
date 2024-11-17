@@ -7,7 +7,8 @@ namespace WinFormsApp1
 {
     public partial class MockTest_Page : Form
     {
-        private List<Question> questions;
+        private List<List<Question>> tests; // List of tests
+        private List<Question> selectedTest; // Selected test questions
         private int currentQuestionIndex = 0;
         private int score = 0;
 
@@ -18,30 +19,32 @@ namespace WinFormsApp1
         private System.Windows.Forms.Timer quizTimer; // Timer object
         private Label timerLabel; // Label for the timer
         private int timeRemaining = 30; // Countdown time in seconds
+        private int testNumber = 0; // Track the current test number
 
         public MockTest_Page()
         {
             InitializeComponent();
 
-            questions = new List<Question>
+            // Initialize the tests
+            tests = new List<List<Question>>
             {
-                new Question
+                new List<Question>
                 {
-                    Text = "What is the capital of France?",
-                    Options = new List<string> { "Berlin", "Madrid", "Paris", "Rome" },
-                    CorrectOptionIndex = 2
+                    new Question { Text = "What is the capital of France?", Options = new List<string> { "Berlin", "Madrid", "Paris", "Rome" }, CorrectOptionIndex = 2 },
+                    new Question { Text = "Which planet is known as the Red Planet?", Options = new List<string> { "Earth", "Mars", "Jupiter", "Saturn" }, CorrectOptionIndex = 1 },
+                    // Add 8 more questions for Test 1...
                 },
-                new Question
+                new List<Question>
                 {
-                    Text = "Which planet is known as the Red Planet?",
-                    Options = new List<string> { "Earth", "Mars", "Jupiter", "Saturn" },
-                    CorrectOptionIndex = 1
+                    new Question { Text = "What is the largest ocean on Earth?", Options = new List<string> { "Atlantic", "Indian", "Arctic", "Pacific" }, CorrectOptionIndex = 3 },
+                    new Question { Text = "Which gas is most abundant in Earth's atmosphere?", Options = new List<string> { "Oxygen", "Nitrogen", "Carbon Dioxide", "Argon" }, CorrectOptionIndex = 1 },
+                    // Add 8 more questions for Test 2...
                 },
-                new Question
+                new List<Question>
                 {
-                    Text = "What is the largest ocean on Earth?",
-                    Options = new List<string> { "Atlantic", "Indian", "Arctic", "Pacific" },
-                    CorrectOptionIndex = 3
+                    new Question { Text = "What is the chemical symbol for water?", Options = new List<string> { "O2", "H2O", "CO2", "H2" }, CorrectOptionIndex = 1 },
+                    new Question { Text = "Which country has the largest population?", Options = new List<string> { "India", "USA", "China", "Russia" }, CorrectOptionIndex = 2 },
+                    // Add 8 more questions for Test 3...
                 }
             };
 
@@ -90,14 +93,24 @@ namespace WinFormsApp1
             };
             startButton.Click += StartQuizButton_Click;
 
+            Controls.Add(startButton);
+
             Controls.Add(BacktoForm);
 
-            
-            Controls.Add(startButton);
         }
+
 
         private void StartQuizButton_Click(object? sender, EventArgs e)
         {
+            // Reset test-specific variables
+            currentQuestionIndex = 0;
+            score = 0;
+
+            // Randomly select one test
+            Random random = new Random();
+            testNumber = random.Next(tests.Count) + 1; // Track the selected test number
+            selectedTest = tests[testNumber - 1];
+
             InitializeTimer();
             LoadQuestion();
         }
@@ -111,6 +124,7 @@ namespace WinFormsApp1
                 quizTimer.Tick += QuizTimer_Tick;
             }
 
+            timeRemaining = 30; // Reset timer
             quizTimer.Start();
 
             timerLabel = new Label
@@ -141,7 +155,7 @@ namespace WinFormsApp1
 
         private void LoadQuestion()
         {
-            if (currentQuestionIndex >= questions.Count)
+            if (currentQuestionIndex >= selectedTest.Count)
             {
                 quizTimer.Stop();
                 ShowScore();
@@ -149,20 +163,30 @@ namespace WinFormsApp1
             }
 
             Controls.Clear();
-            Controls.Add(timerLabel); // Ensure the timer label is always displayed
+            Controls.Add(timerLabel);
 
-            trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {questions.Count}";
+            // Display the test number
+            Label testLabel = new Label
+            {
+                Text = $"Test Number: {testNumber}",
+                AutoSize = true,
+                Font = new Font("Arial", 10, FontStyle.Bold),
+                Location = new Point(10, 40),
+            };
+            Controls.Add(testLabel);
+
+            trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {selectedTest.Count}";
             trackerLabel.Location = new Point(ClientSize.Width - trackerLabel.Width - 20, 10);
             Controls.Add(trackerLabel);
 
-            Question currentQuestion = questions[currentQuestionIndex];
+            Question currentQuestion = selectedTest[currentQuestionIndex];
 
             Label questionLabel = new Label
             {
                 Text = currentQuestion.Text,
-                AutoSize = true
+                AutoSize = true,
             };
-            questionLabel.Location = new Point((ClientSize.Width - questionLabel.Width) / 2, 50);
+            questionLabel.Location = new Point((ClientSize.Width - questionLabel.Width) / 2, 100);
             Controls.Add(questionLabel);
 
             int yPosition = questionLabel.Bottom + 20;
@@ -172,7 +196,7 @@ namespace WinFormsApp1
                 {
                     Text = currentQuestion.Options[i],
                     AutoSize = true,
-                    Tag = i
+                    Tag = i,
                 };
                 optionButton.Location = new Point((ClientSize.Width - optionButton.Width) / 2, yPosition);
                 Controls.Add(optionButton);
@@ -203,7 +227,7 @@ namespace WinFormsApp1
                 {
                     if (radioButton.Tag is int selectedOption)
                     {
-                        if (selectedOption == questions[currentQuestionIndex].CorrectOptionIndex)
+                        if (selectedOption == selectedTest[currentQuestionIndex].CorrectOptionIndex)
                         {
                             score++;
                         }
@@ -224,7 +248,7 @@ namespace WinFormsApp1
 
             Label scoreLabel = new Label
             {
-                Text = $"Test Completed!\nYour score: {score} out of {questions.Count}",
+                Text = $"Test Completed!\nYour score: {score} out of {selectedTest.Count}",
                 AutoSize = true
             };
             scoreLabel.Location = new Point((ClientSize.Width - scoreLabel.Width) / 2, 100);
@@ -239,7 +263,6 @@ namespace WinFormsApp1
             finishButton.Click += (s, e) => ShowIntroduction();
             Controls.Add(finishButton);
         }
-
         private void BacktoForm_Click(object sender, EventArgs e)
         {
             MainPage nextForm = new MainPage();
@@ -247,7 +270,6 @@ namespace WinFormsApp1
             this.Hide();
         }
     }
-    //completed
 
 
 }

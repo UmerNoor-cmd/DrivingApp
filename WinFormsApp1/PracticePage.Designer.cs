@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PracticePage));
             introLabel = new Label();
-            Top_Pic = new PictureBox();
             startButton = new Button();
-            Previous = new Button();
+            Top_Pic = new PictureBox();
             Next = new Button();
+            Previous = new Button();
             Backform = new Button();
             ((System.ComponentModel.ISupportInitialize)Top_Pic).BeginInit();
             SuspendLayout();
@@ -48,6 +48,15 @@
             introLabel.Text = resources.GetString("introLabel.Text");
             introLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // startButton
+            // 
+            startButton.Location = new Point(378, 253);
+            startButton.Name = "startButton";
+            startButton.Size = new Size(75, 23);
+            startButton.TabIndex = 2;
+            startButton.Text = "Start Quiz";
+            startButton.UseVisualStyleBackColor = true;
+            // 
             // Top_Pic
             // 
             Top_Pic.Image = Properties.Resources.dual_carriageway_sunrise;
@@ -58,14 +67,15 @@
             Top_Pic.TabIndex = 1;
             Top_Pic.TabStop = false;
             // 
-            // startButton
+            // Next
             // 
-            startButton.Location = new Point(378, 253);
-            startButton.Name = "startButton";
-            startButton.Size = new Size(75, 23);
-            startButton.TabIndex = 2;
-            startButton.Text = "Start Quiz";
-            startButton.UseVisualStyleBackColor = true;
+            Next.Location = new Point(758, 12);
+            Next.Name = "Next";
+            Next.Size = new Size(30, 26);
+            Next.TabIndex = 4;
+            Next.Text = ">";
+            Next.UseVisualStyleBackColor = true;
+            Next.Click += Next_Click;
             // 
             // Previous
             // 
@@ -76,16 +86,6 @@
             Previous.Text = "<";
             Previous.UseVisualStyleBackColor = true;
             Previous.Click += Previous_Click;
-            // 
-            // Next
-            // 
-            Next.Location = new Point(758, 12);
-            Next.Name = "Next";
-            Next.Size = new Size(30, 26);
-            Next.TabIndex = 4;
-            Next.Text = ">";
-            Next.UseVisualStyleBackColor = true;
-            Next.Click += Next_Click;
             // 
             // Backform
             // 
@@ -119,10 +119,10 @@
         //completed
 
         private Label introLabel;
-        private PictureBox Top_Pic;
         private Button startButton;
-        private Button Previous;
+        private PictureBox Top_Pic;
         private Button Next;
+        private Button Previous;
         private Button Backform;
     }
 }

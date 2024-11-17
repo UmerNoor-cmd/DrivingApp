@@ -15,7 +15,7 @@ namespace WinFormsApp1
         }
         private void Mock_test_Click(object sender, EventArgs e)
         {
-            MockTest_Page nextForm = new MockTest_Page();
+            InstructionsForm nextForm = new InstructionsForm();
             nextForm.Show();
             this.Hide();
         }
