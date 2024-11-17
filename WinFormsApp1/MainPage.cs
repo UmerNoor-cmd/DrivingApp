@@ -26,6 +26,14 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
+
+        private void Progress_Click(object sender, EventArgs e)
+        {
+            Progress_Page nextForm = new Progress_Page(GlobalData.TestScores);
+            nextForm.Show();
+            this.Hide();
+        }
+
     }
     //completed
 

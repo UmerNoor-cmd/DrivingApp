@@ -20,6 +20,7 @@ namespace WinFormsApp1
         private Label timerLabel; // Label for the timer
         private int timeRemaining = 30; // Countdown time in seconds
         private int testNumber = 0; // Track the current test number
+        private Dictionary<int, int> testScores = new Dictionary<int, int>(); // Global dictionary to track scores
 
         public MockTest_Page()
         {
@@ -246,6 +247,10 @@ namespace WinFormsApp1
         {
             Controls.Clear();
 
+            // Save the score for the current test in the global data
+            if (!GlobalData.TestScores.ContainsKey(testNumber))
+                GlobalData.TestScores[testNumber] = score;
+
             Label scoreLabel = new Label
             {
                 Text = $"Test Completed!\nYour score: {score} out of {selectedTest.Count}",
@@ -260,9 +265,13 @@ namespace WinFormsApp1
                 AutoSize = true
             };
             finishButton.Location = new Point((ClientSize.Width - finishButton.Width) / 2, scoreLabel.Bottom + 20);
-            finishButton.Click += (s, e) => ShowIntroduction();
+            finishButton.Click += (s, e) =>
+            {
+                ShowIntroduction(); // Return to introduction or main menu
+            };
             Controls.Add(finishButton);
         }
+
         private void BacktoForm_Click(object sender, EventArgs e)
         {
             MainPage nextForm = new MainPage();
@@ -270,6 +279,9 @@ namespace WinFormsApp1
             this.Hide();
         }
     }
-
+    public static class GlobalData
+    {
+        public static Dictionary<int, int> TestScores { get; set; } = new Dictionary<int, int>();
+    }
 
 }

@@ -87,6 +87,7 @@
             Progress.TabIndex = 4;
             Progress.Text = "Progress";
             Progress.UseVisualStyleBackColor = true;
+            Progress.Click += Progress_Click;
             // 
             // MainPage
             // 
