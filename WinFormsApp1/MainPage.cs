@@ -29,7 +29,7 @@ namespace WinFormsApp1
 
         private void Progress_Click(object sender, EventArgs e)
         {
-            Progress_Page nextForm = new Progress_Page(GlobalData.TestScores);
+            Progress_Page nextForm = new Progress_Page(GlobalData.TestScores, GlobalData.PracticeScores);
             nextForm.Show();
             this.Hide();
         }

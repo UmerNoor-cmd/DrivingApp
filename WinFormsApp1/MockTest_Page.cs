@@ -282,6 +282,8 @@ namespace WinFormsApp1
     public static class GlobalData
     {
         public static Dictionary<int, int> TestScores { get; set; } = new Dictionary<int, int>();
+        public static Dictionary<int, int> PracticeScores { get; set; } = new Dictionary<int, int>(); // Practice test scores
+
     }
 
 }

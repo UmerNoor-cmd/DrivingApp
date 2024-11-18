@@ -7,7 +7,8 @@ namespace WinFormsApp1
 {
     public partial class Progress_Page : Form
     {
-        private Dictionary<int, int> testScores; // Dictionary to store test numbers and their scores
+        private Dictionary<int, int> mockTestScores; // Dictionary to store mock test scores
+        private Dictionary<int, int> practiceTestScores; // Dictionary to store practice test scores
         private const int PassingScorePercentage = 70; // Passing percentage
         private Dictionary<int, int> testQuestions = new Dictionary<int, int>
         {
@@ -16,12 +17,13 @@ namespace WinFormsApp1
             { 3, 2 }  // Test 3 has 2 questions
         };
 
-        public Progress_Page(Dictionary<int, int> scores)
+        public Progress_Page(Dictionary<int, int> mockScores, Dictionary<int, int> practiceScores)
         {
             InitializeComponent();
 
-            // Initialize test scores
-            testScores = scores;
+            // Initialize scores
+            mockTestScores = mockScores;
+            practiceTestScores = practiceScores;
 
             InitializeProgressBar();
         }
@@ -41,48 +43,38 @@ namespace WinFormsApp1
 
             int yPosition = titleLabel.Bottom + 30;
 
-            for (int testNumber = 1; testNumber <= testQuestions.Count; testNumber++)
+            // Add mock test progress
+            Label mockProgressLabel = new Label
             {
-                // Display test label
-                Label testLabel = new Label
-                {
-                    Text = $"Test {testNumber}",
-                    Font = new Font("Arial", 10, FontStyle.Bold),
-                    AutoSize = true,
-                    Location = new Point(20, yPosition)
-                };
-                Controls.Add(testLabel);
+                Text = "Mock Test Progress",
+                Font = new Font("Arial", 12, FontStyle.Bold | FontStyle.Underline),
+                AutoSize = true,
+                Location = new Point(20, yPosition)
+            };
+            Controls.Add(mockProgressLabel);
 
-                // Calculate the percentage score
-                int percentage = testScores.ContainsKey(testNumber) && testQuestions.ContainsKey(testNumber)
-                    ? (testScores[testNumber] * 100) / testQuestions[testNumber]
-                    : 0;
+            yPosition += 30;
 
-                // Display progress bar
-                ProgressBar progressBar = new ProgressBar
-                {
-                    Minimum = 0,
-                    Maximum = 100,
-                    Value = percentage,
-                    Size = new Size(200, 20),
-                    Location = new Point(100, yPosition)
-                };
-                Controls.Add(progressBar);
+            foreach (var testNumber in testQuestions.Keys)
+            {
+                AddProgressRow("Test", testNumber, mockTestScores, ref yPosition);
+            }
 
-                // Display score percentage as text
-                Label scoreLabel = new Label
-                {
-                    Text = testScores.ContainsKey(testNumber)
-                        ? $"{percentage}%"
-                        : "Not Attempted",
-                    Font = new Font("Arial", 10, FontStyle.Regular),
-                    AutoSize = true,
-                    Location = new Point(progressBar.Right + 10, yPosition)
-                };
-                Controls.Add(scoreLabel);
+            // Add practice test progress
+            Label practiceProgressLabel = new Label
+            {
+                Text = "Practice Test Progress",
+                Font = new Font("Arial", 12, FontStyle.Bold | FontStyle.Underline),
+                AutoSize = true,
+                Location = new Point(20, yPosition)
+            };
+            Controls.Add(practiceProgressLabel);
 
-                // Increment yPosition for the next test
-                yPosition += 40;
+            yPosition += 30;
+
+            foreach (var testNumber in testQuestions.Keys)
+            {
+                AddProgressRow("Test", testNumber, practiceTestScores, ref yPosition);
             }
 
             // Add Back to Main button
@@ -94,6 +86,49 @@ namespace WinFormsApp1
             };
             backToMainButton.Click += BackToMain_Click;
             Controls.Add(backToMainButton);
+        }
+
+        private void AddProgressRow(string category, int testNumber, Dictionary<int, int> scores, ref int yPosition)
+        {
+            // Display test label
+            Label testLabel = new Label
+            {
+                Text = $"{category} {testNumber}",
+                Font = new Font("Arial", 10, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(20, yPosition)
+            };
+            Controls.Add(testLabel);
+
+            // Calculate percentage
+            int percentage = scores.ContainsKey(testNumber) && testQuestions.ContainsKey(testNumber)
+                ? (scores[testNumber] * 100) / testQuestions[testNumber]
+                : 0;
+
+            // Display progress bar
+            ProgressBar progressBar = new ProgressBar
+            {
+                Minimum = 0,
+                Maximum = 100,
+                Value = percentage,
+                Size = new Size(200, 20),
+                Location = new Point(100, yPosition)
+            };
+            Controls.Add(progressBar);
+
+            // Display percentage text
+            Label scoreLabel = new Label
+            {
+                Text = scores.ContainsKey(testNumber)
+                    ? $"{percentage}%"
+                    : "Not Attempted",
+                Font = new Font("Arial", 10, FontStyle.Regular),
+                AutoSize = true,
+                Location = new Point(progressBar.Right + 10, yPosition)
+            };
+            Controls.Add(scoreLabel);
+
+            yPosition += 40; // Increment position for the next row
         }
 
         private void BackToMain_Click(object sender, EventArgs e)

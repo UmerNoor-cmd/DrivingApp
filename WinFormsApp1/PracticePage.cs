@@ -249,6 +249,15 @@ namespace WinFormsApp1
             // Clear the form
             Controls.Clear();
 
+
+
+            // Save the score globally with the test index
+            if (selectedTest != null)
+            {
+                int testIndex = tests.IndexOf(selectedTest) + 1; // Test index starts from 1
+                GlobalData.PracticeScores[testIndex] = score; // Save the score for this test
+            }
+
             // Display the final score
             Label scoreLabel = new Label
             {
@@ -291,4 +300,6 @@ namespace WinFormsApp1
         public List<string>? Options { get; set; }
         public int CorrectOptionIndex { get; set; }
     }
+
+
 }
