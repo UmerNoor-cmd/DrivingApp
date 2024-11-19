@@ -25,7 +25,7 @@ namespace WinFormsApp1
                 // Instructions Label
                 Label instructionsLabel = new Label
                 {
-                    Text = "This is a time-limited test. You will have 30 seconds to complete each question.\n\n" +
+                    Text = "This is a time-limited test. You will have 57 minutes to complete each question.\n\n" +
                            "Once you start the quiz, the timer will begin, and your result will be recorded as your real attempt.\n\n" +
                            "Please read the instructions carefully before starting.",
                     AutoSize = true,

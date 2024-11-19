@@ -12,9 +12,9 @@ namespace WinFormsApp1
         private const int PassingScorePercentage = 70; // Passing percentage
         private Dictionary<int, int> testQuestions = new Dictionary<int, int>
         {
-            { 1, 2 }, // Test 1 has 2 questions
-            { 2, 2 }, // Test 2 has 2 questions
-            { 3, 2 }  // Test 3 has 2 questions
+            { 1, 30 }, // Test 1 has 2 questions
+            { 2, 30 }, // Test 2 has 2 questions
+            { 3, 30 }  // Test 3 has 2 questions
         };
 
         public Progress_Page(Dictionary<int, int> mockScores, Dictionary<int, int> practiceScores)
