@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1
 {
-    partial class Progress_Page
+    partial class FlaggedQuestionsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,32 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BackToMain = new Button();
             SuspendLayout();
             // 
-            // BackToMain
-            // 
-            BackToMain.Location = new Point(21, 17);
-            BackToMain.Name = "BackToMain";
-            BackToMain.Size = new Size(31, 23);
-            BackToMain.TabIndex = 0;
-            BackToMain.Text = "<";
-            BackToMain.UseVisualStyleBackColor = true;
-            BackToMain.Click += BackToMain_Click;
-            // 
-            // Progress_Page
+            // FlaggedQuestionsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1058, 631);
-            Controls.Add(BackToMain);
-            Name = "Progress_Page";
-            Text = "Progress Page";
+            ClientSize = new Size(1062, 632);
+            Name = "FlaggedQuestionsForm";
+            Text = "Form1";
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Button BackToMain;
     }
 }

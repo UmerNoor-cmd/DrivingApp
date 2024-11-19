@@ -7,21 +7,20 @@ namespace WinFormsApp1
 {
     public partial class Progress_Page : Form
     {
-        private Dictionary<int, int> mockTestScores; // Dictionary to store mock test scores
-        private Dictionary<int, int> practiceTestScores; // Dictionary to store practice test scores
+        private Dictionary<int, int> mockTestScores; // Mock test scores
+        private Dictionary<int, int> practiceTestScores; // Practice test scores
         private const int PassingScorePercentage = 70; // Passing percentage
         private Dictionary<int, int> testQuestions = new Dictionary<int, int>
         {
-            { 1, 30 }, // Test 1 has 2 questions
-            { 2, 30 }, // Test 2 has 2 questions
-            { 3, 30 }  // Test 3 has 2 questions
+            { 1, 30 },
+            { 2, 30 },
+            { 3, 30 }
         };
 
         public Progress_Page(Dictionary<int, int> mockScores, Dictionary<int, int> practiceScores)
         {
             InitializeComponent();
 
-            // Initialize scores
             mockTestScores = mockScores;
             practiceTestScores = practiceScores;
 
@@ -43,7 +42,6 @@ namespace WinFormsApp1
 
             int yPosition = titleLabel.Bottom + 30;
 
-            // Add mock test progress
             Label mockProgressLabel = new Label
             {
                 Text = "Mock Test Progress",
@@ -60,7 +58,6 @@ namespace WinFormsApp1
                 AddProgressRow("Test", testNumber, mockTestScores, ref yPosition);
             }
 
-            // Add practice test progress
             Label practiceProgressLabel = new Label
             {
                 Text = "Practice Test Progress",
@@ -77,12 +74,22 @@ namespace WinFormsApp1
                 AddProgressRow("Test", testNumber, practiceTestScores, ref yPosition);
             }
 
+            // Add View Flagged Questions button
+            Button viewFlaggedQuestionsButton = new Button
+            {
+                Text = "View Flagged Questions",
+                Size = new Size(200, 30),
+                Location = new Point((ClientSize.Width - 200) / 2, yPosition + 20)
+            };
+            viewFlaggedQuestionsButton.Click += ViewFlaggedQuestionsButton_Click;
+            Controls.Add(viewFlaggedQuestionsButton);
+
             // Add Back to Main button
             Button backToMainButton = new Button
             {
                 Text = "Back to Main",
                 Size = new Size(100, 30),
-                Location = new Point((ClientSize.Width - 100) / 2, yPosition + 20)
+                Location = new Point((ClientSize.Width - 100) / 2, viewFlaggedQuestionsButton.Bottom + 20)
             };
             backToMainButton.Click += BackToMain_Click;
             Controls.Add(backToMainButton);
@@ -90,7 +97,6 @@ namespace WinFormsApp1
 
         private void AddProgressRow(string category, int testNumber, Dictionary<int, int> scores, ref int yPosition)
         {
-            // Display test label
             Label testLabel = new Label
             {
                 Text = $"{category} {testNumber}",
@@ -100,12 +106,10 @@ namespace WinFormsApp1
             };
             Controls.Add(testLabel);
 
-            // Calculate percentage
             int percentage = scores.ContainsKey(testNumber) && testQuestions.ContainsKey(testNumber)
                 ? (scores[testNumber] * 100) / testQuestions[testNumber]
                 : 0;
 
-            // Display progress bar
             ProgressBar progressBar = new ProgressBar
             {
                 Minimum = 0,
@@ -116,7 +120,6 @@ namespace WinFormsApp1
             };
             Controls.Add(progressBar);
 
-            // Display percentage text
             Label scoreLabel = new Label
             {
                 Text = scores.ContainsKey(testNumber)
@@ -128,7 +131,13 @@ namespace WinFormsApp1
             };
             Controls.Add(scoreLabel);
 
-            yPosition += 40; // Increment position for the next row
+            yPosition += 40;
+        }
+
+        private void ViewFlaggedQuestionsButton_Click(object sender, EventArgs e)
+        {
+            FlaggedQuestionsForm flaggedQuestionsForm = new FlaggedQuestionsForm();
+            flaggedQuestionsForm.ShowDialog();
         }
 
         private void BackToMain_Click(object sender, EventArgs e)
