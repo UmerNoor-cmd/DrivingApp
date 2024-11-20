@@ -133,31 +133,15 @@ namespace WinFormsApp1
             // Button to go back to previous form
             Controls.Add(Backform);
 
-            startButton.Click += StartQuizButton_Click;
-            Controls.Add(startButton);
+            Controls.Add(Test1);
+
+            Controls.Add(Test2);
+
+            Controls.Add(Test3);
+
         }
 
-        private void StartQuizButton_Click(object? sender, EventArgs e)
-        {
-            // Randomly select a test that is not the same as the previous one
-            Random random = new Random();
-            Test? newTest;
-            do
-            {
-                newTest = tests[random.Next(tests.Count)];
-            } while (newTest == previousTest); // Repeat until a different test is selected
 
-            previousTest = newTest; // Update the previous test
-            selectedTest = newTest;
-            currentQuestionIndex = 0;
-            score = 0;
-
-            // Update the test name label
-            int testIndex = tests.IndexOf(selectedTest) + 1; // Test index starts from 1
-            testNameLabel.Text = $"Test {testIndex}";
-
-            LoadQuestion();
-        }
 
 
         private void LoadQuestion()
@@ -171,6 +155,8 @@ namespace WinFormsApp1
             // Clear other controls but retain the testNameLabel
             Controls.Clear();
             Controls.Add(testNameLabel);
+            Controls.Add(Quit);
+            Controls.Add(showAnswerButton); // Add the Show Answer button
 
             // Display tracker for question number
             trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {selectedTest.Questions.Count}";
@@ -206,6 +192,9 @@ namespace WinFormsApp1
             // Add Previous and Next buttons
             previousButton.Location = new Point(10, yPosition + 10);
             nextButton.Location = new Point(ClientSize.Width - nextButton.Width - 10, yPosition + 10);
+            Quit.Location = new Point(10, yPosition + 40);
+            showAnswerButton.Location = new Point(ClientSize.Width - showAnswerButton.Width - 10, yPosition + 40); // Below the Quit button
+
 
             Controls.Add(previousButton);
             Controls.Add(nextButton);
@@ -284,6 +273,68 @@ namespace WinFormsApp1
             MainPage nextForm = new MainPage();
             nextForm.Show();
             this.Hide();
+        }
+
+        private void Test1_Click(object sender, EventArgs e)
+        {
+            StartTest(0);
+        }
+
+        private void Test2_Click(object sender, EventArgs e)
+        {
+            StartTest(1);
+        }
+
+        private void Test3_Click(object sender, EventArgs e)
+        {
+            StartTest(2);
+        }
+
+        private void StartTest(int testIndex)
+        {
+            selectedTest = tests[testIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+
+            // Update the test name label
+            testNameLabel.Text = $"Test {testIndex + 1}";
+            LoadQuestion();
+        }
+
+
+        private void Quit_Click(object sender, EventArgs e)
+        {
+            // Reset test-related variables
+            selectedTest = null;
+            previousTest = null;
+            currentQuestionIndex = 0;
+            score = 0;
+
+            // Return to the introduction screen
+            ShowIntroduction();
+        }
+
+        private void showAnswerButton_Click(object sender, EventArgs e)
+        {
+            if (selectedTest == null || currentQuestionIndex >= selectedTest.Questions.Count)
+            {
+                MessageBox.Show("No question loaded to show the answer.");
+                return;
+            }
+
+            // Find the correct answer for the current question
+            Question currentQuestion = selectedTest.Questions[currentQuestionIndex];
+            int correctOptionIndex = currentQuestion.CorrectOptionIndex;
+
+            // Iterate through controls to find the RadioButton with the correct answer
+            foreach (Control control in Controls)
+            {
+                if (control is RadioButton radioButton && (int)radioButton.Tag == correctOptionIndex)
+                {
+                    radioButton.BackColor = Color.LightGreen; // Highlight the correct answer
+                    break;
+                }
+            }
         }
     }
 

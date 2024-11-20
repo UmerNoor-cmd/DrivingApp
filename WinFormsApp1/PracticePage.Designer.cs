@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PracticePage));
             introLabel = new Label();
-            startButton = new Button();
             Top_Pic = new PictureBox();
             Next = new Button();
             Previous = new Button();
             Backform = new Button();
+            Test1 = new Button();
+            Test2 = new Button();
+            Test3 = new Button();
+            Quit = new Button();
+            showAnswerButton = new Button();
             ((System.ComponentModel.ISupportInitialize)Top_Pic).BeginInit();
             SuspendLayout();
             // 
@@ -43,19 +46,10 @@
             introLabel.AutoSize = true;
             introLabel.Location = new Point(220, 175);
             introLabel.Name = "introLabel";
-            introLabel.Size = new Size(374, 75);
+            introLabel.Size = new Size(374, 60);
             introLabel.TabIndex = 0;
-            introLabel.Text = resources.GetString("introLabel.Text");
+            introLabel.Text = "Welcome! You are about to practice the theory side of this application\r\nYou will be given 20 questions to test your knowledge\r\nChoose the test of your choice when you're ready!\r\n\r\n";
             introLabel.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // startButton
-            // 
-            startButton.Location = new Point(378, 253);
-            startButton.Name = "startButton";
-            startButton.Size = new Size(75, 23);
-            startButton.TabIndex = 2;
-            startButton.Text = "Start Quiz";
-            startButton.UseVisualStyleBackColor = true;
             // 
             // Top_Pic
             // 
@@ -97,16 +91,70 @@
             Backform.UseVisualStyleBackColor = true;
             Backform.Click += Backform_Click;
             // 
+            // Test1
+            // 
+            Test1.Location = new Point(171, 253);
+            Test1.Name = "Test1";
+            Test1.Size = new Size(96, 88);
+            Test1.TabIndex = 6;
+            Test1.Text = "Test 1";
+            Test1.UseVisualStyleBackColor = true;
+            Test1.Click += Test1_Click;
+            // 
+            // Test2
+            // 
+            Test2.Location = new Point(363, 253);
+            Test2.Name = "Test2";
+            Test2.Size = new Size(96, 88);
+            Test2.TabIndex = 7;
+            Test2.Text = "Test 2";
+            Test2.UseVisualStyleBackColor = true;
+            Test2.Click += Test2_Click;
+            // 
+            // Test3
+            // 
+            Test3.Location = new Point(551, 253);
+            Test3.Name = "Test3";
+            Test3.Size = new Size(96, 88);
+            Test3.TabIndex = 8;
+            Test3.Text = "Test 3";
+            Test3.UseVisualStyleBackColor = true;
+            Test3.Click += Test3_Click;
+            // 
+            // Quit
+            // 
+            Quit.Location = new Point(375, 212);
+            Quit.Name = "Quit";
+            Quit.Size = new Size(75, 23);
+            Quit.TabIndex = 9;
+            Quit.Text = "Quit Test";
+            Quit.UseVisualStyleBackColor = true;
+            Quit.Click += Quit_Click;
+            // 
+            // showAnswerButton
+            // 
+            showAnswerButton.Location = new Point(347, 367);
+            showAnswerButton.Name = "showAnswerButton";
+            showAnswerButton.Size = new Size(112, 23);
+            showAnswerButton.TabIndex = 10;
+            showAnswerButton.Text = "Show Answer";
+            showAnswerButton.UseVisualStyleBackColor = true;
+            showAnswerButton.Click += showAnswerButton_Click;
+            // 
             // PracticePage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(showAnswerButton);
+            Controls.Add(Quit);
+            Controls.Add(Test3);
+            Controls.Add(Test2);
+            Controls.Add(Test1);
             Controls.Add(Backform);
             Controls.Add(Next);
             Controls.Add(Previous);
             Controls.Add(Top_Pic);
-            Controls.Add(startButton);
             Controls.Add(introLabel);
             Name = "PracticePage";
             Text = "Practice Page";
@@ -119,10 +167,14 @@
         //completed
 
         private Label introLabel;
-        private Button startButton;
         private PictureBox Top_Pic;
         private Button Next;
         private Button Previous;
         private Button Backform;
+        private Button Test1;
+        private Button Test2;
+        private Button Test3;
+        private Button Quit;
+        private Button showAnswerButton;
     }
 }
