@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -10,6 +11,7 @@ namespace WinFormsApp1
         private Dictionary<int, int> mockTestScores; // Mock test scores
         private Dictionary<int, int> practiceTestScores; // Practice test scores
         private const int PassingScorePercentage = 70; // Passing percentage
+        private Label topicsCompletedLabel;
         private Dictionary<int, int> testQuestions = new Dictionary<int, int>
         {
             { 1, 30 },
@@ -84,6 +86,25 @@ namespace WinFormsApp1
             viewFlaggedQuestionsButton.Click += ViewFlaggedQuestionsButton_Click;
             Controls.Add(viewFlaggedQuestionsButton);
 
+
+            // Topics Completed Label
+            topicsCompletedLabel = new Label
+            {
+                Text = "Topics Completed: None",
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                AutoSize = true,
+                Location = new Point(20, yPosition )
+            };
+            Controls.Add(topicsCompletedLabel);
+
+            // Start periodic updates
+            System.Windows.Forms.Timer updateTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 1000 // Check for updates every second
+            };
+            updateTimer.Tick += (s, e) => UpdateTopicsCompleted();
+            updateTimer.Start();
+
             // Add Back to Main button
             Button backToMainButton = new Button
             {
@@ -146,5 +167,27 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
+
+        private void UpdateTopicsCompleted()
+        {
+            Debug.WriteLine("UpdateTopicsCompleted called");
+            if (topicsCompletedLabel == null)
+            {
+                Debug.WriteLine("topicsCompletedLabel is null!");
+                return; // Exit if not initialized
+            }
+
+            if (Traffic_Signs_page.CompletedTopics.Any())
+            {
+                topicsCompletedLabel.Text = "Topics Completed: " +
+                                            string.Join(", ", Traffic_Signs_page.CompletedTopics);
+            }
+            else
+            {
+                topicsCompletedLabel.Text = "Topics Completed: None";
+            }
+        }
+
+
     }
 }

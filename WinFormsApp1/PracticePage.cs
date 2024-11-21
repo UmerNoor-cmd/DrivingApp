@@ -16,6 +16,7 @@ namespace WinFormsApp1
         private Button previousButton; // Previous button
         private Button nextButton; // Next button
         private Label testNameLabel; // Label to display the test name
+        private PictureBox questionPictureBox; // PictureBox for question image
 
 
         public PracticePage()
@@ -40,6 +41,13 @@ namespace WinFormsApp1
                             Text = "Which planet is known as the Red Planet?",
                             Options = new List<string> { "Earth", "Mars", "Jupiter", "Saturn" },
                             CorrectOptionIndex = 1
+                        },
+                        new Question
+                        {
+                            Text = "Identify this landmark:",
+                            Options = new List<string> { "Eiffel Tower", "Big Ben", "Statue of Liberty", "Colosseum" },
+                            CorrectOptionIndex = 0,
+                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\STOP_SIGN_PIC.jpg") // Add a valid image file path
                         },
                         // Add more unique questions for this test
                     }
@@ -116,6 +124,17 @@ namespace WinFormsApp1
             };
             nextButton.Click += Next_Click;
 
+            // Initialize PictureBox for question images
+            questionPictureBox = new PictureBox
+            {
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Size = new Size(300, 200), // Default size
+                Visible = false, // Initially hidden; only shown if there's an image
+                Location = new Point((ClientSize.Width - 300) / 2, 200) // Centered
+
+            };
+
+
             ShowIntroduction();
         }
 
@@ -157,6 +176,7 @@ namespace WinFormsApp1
             Controls.Add(testNameLabel);
             Controls.Add(Quit);
             Controls.Add(showAnswerButton); // Add the Show Answer button
+            Controls.Add(questionPictureBox);
 
             // Display tracker for question number
             trackerLabel.Text = $"Question {currentQuestionIndex + 1} of {selectedTest.Questions.Count}";
@@ -188,6 +208,19 @@ namespace WinFormsApp1
                 Controls.Add(optionButton);
                 yPosition += 30;
             }
+
+
+            // Display image if available
+            if (currentQuestion.Image != null)
+            {
+                questionPictureBox.Image = currentQuestion.Image;
+                questionPictureBox.Visible = true;
+            }
+            else
+            {
+                questionPictureBox.Visible = false;
+            }
+
 
             // Add Previous and Next buttons
             previousButton.Location = new Point(10, yPosition + 10);
@@ -350,6 +383,8 @@ namespace WinFormsApp1
         public string? Text { get; set; }
         public List<string>? Options { get; set; }
         public int CorrectOptionIndex { get; set; }
+        public Image? Image { get; set; } // New property for image
+
     }
 
 
