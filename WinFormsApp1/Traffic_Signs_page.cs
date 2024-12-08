@@ -89,9 +89,10 @@ namespace WinFormsApp1
 
         private void Orders_Signs_Click(object sender, EventArgs e)
         {
-
+            Orders_Signs nextForm = new Orders_Signs();
+            nextForm.Show();
+            this.Hide();
         }
-
         private void Warning_sign_Click(object sender, EventArgs e)
         {
 
