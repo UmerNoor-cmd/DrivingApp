@@ -95,22 +95,30 @@ namespace WinFormsApp1
         }
         private void Warning_sign_Click(object sender, EventArgs e)
         {
-
+            Warning_Sign nextForm = new Warning_Sign();
+            nextForm.Show();
+            this.Hide();
         }
 
         private void Direction_Sign_Click(object sender, EventArgs e)
         {
-
+            Direction_Signs nextForm = new Direction_Signs();
+            nextForm.Show();
+            this.Hide();
         }
 
         private void Information_Sign_Click(object sender, EventArgs e)
         {
-
+            Information_Signs nextForm = new Information_Signs();
+            nextForm.Show();
+            this.Hide();
         }
 
         private void RoadWork_Signs_Click(object sender, EventArgs e)
         {
-
+            Road_works_signs nextForm = new Road_works_signs();
+            nextForm.Show();
+            this.Hide();
         }
         private void BackToMain_Click(object sender, EventArgs e)
         {
