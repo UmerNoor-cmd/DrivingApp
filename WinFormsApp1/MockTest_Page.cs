@@ -34,6 +34,11 @@ namespace WinFormsApp1
         public MockTest_Page()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+
+
 
             tests = GlobalData.AllTests;
 
@@ -82,20 +87,22 @@ namespace WinFormsApp1
         {
             Controls.Clear();
 
+            Size = new Size(450, 200);
+
             Label introLabel = new Label
             {
-                Text = "Welcome to the Mock Test! You will be given 30 questions.",
+                Text = "    Welcome to the Mock Test!\n  \nYou will be given 30 questions.",
                 AutoSize = true,
                 Font = new Font("Arial", 12, FontStyle.Bold),
-                Location = new Point((ClientSize.Width - 300) / 2, 50)
+                Location = new Point((ClientSize.Width-250) / 2, 10)
             };
             Controls.Add(introLabel);
 
             Button startButton = new Button
             {
                 Text = "Start Test",
-                AutoSize = true,
-                Location = new Point((ClientSize.Width - 100) / 2, 100)
+                Size = new Size(120, 50),
+                Location = new Point((ClientSize.Width-100) / 2, 100)
             };
             startButton.Click += StartQuizButton_Click;
 
@@ -169,13 +176,15 @@ namespace WinFormsApp1
 
         private void LoadQuestion()
         {
+            Size = new Size(1078, 481);
+
             if (currentQuestionIndex >= selectedTest.Count)
             {
                 quizTimer.Stop();
                 ShowScore();
                 return;
             }
-
+            
             Controls.Clear();
             Controls.Add(timerLabel);
 

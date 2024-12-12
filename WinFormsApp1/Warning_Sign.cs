@@ -16,6 +16,10 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             InitializeGrid();
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void InitializeGrid()

@@ -19,11 +19,14 @@ namespace WinFormsApp1
             public InstructionsForm()
             {
                 Text = "Instructions";
-                Size = new Size(800, 300);
+                Size = new Size(850, 300);
                 StartPosition = FormStartPosition.CenterScreen;
+                this.BackColor = Settings_Page.GlobalBackgroundColor;
+                this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
 
-                // Instructions Label
-                Label instructionsLabel = new Label
+
+            // Instructions Label
+            Label instructionsLabel = new Label
                 {
                     Text = "This is a time-limited test. You will have 57 minutes to complete each question.\n\n" +
                            "Once you start the quiz, the timer will begin, and your result will be recorded as your real attempt.You cant quit to the main menu\n\n" +

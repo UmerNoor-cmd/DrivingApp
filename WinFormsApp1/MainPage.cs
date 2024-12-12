@@ -5,6 +5,10 @@ namespace WinFormsApp1
         public MainPage()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+
         }
 
         private void Practice_Click(object sender, EventArgs e)
@@ -34,6 +38,12 @@ namespace WinFormsApp1
             this.Hide();
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Settings_Page nextForm = new Settings_Page();
+            nextForm.Show();
+            this.Hide();
+        }
     }
     //completed
 

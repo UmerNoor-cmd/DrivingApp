@@ -27,6 +27,10 @@ namespace WinFormsApp1
             practiceTestScores = practiceScores;
 
             InitializeProgressBar();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+
         }
 
         private void InitializeProgressBar()
