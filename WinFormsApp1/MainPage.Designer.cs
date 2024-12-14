@@ -73,7 +73,7 @@
             // Signs
             // 
             Signs.BackColor = Color.Coral;
-            Signs.Location = new Point(248, 215);
+            Signs.Location = new Point(375, 105);
             Signs.Name = "Signs";
             Signs.Size = new Size(75, 78);
             Signs.TabIndex = 3;
@@ -83,7 +83,7 @@
             // 
             // Progress
             // 
-            Progress.Location = new Point(499, 215);
+            Progress.Location = new Point(441, 215);
             Progress.Name = "Progress";
             Progress.Size = new Size(75, 78);
             Progress.TabIndex = 4;
@@ -93,11 +93,11 @@
             // 
             // hazardvidtester
             // 
-            hazardvidtester.Location = new Point(38, 52);
+            hazardvidtester.Location = new Point(310, 215);
             hazardvidtester.Name = "hazardvidtester";
-            hazardvidtester.Size = new Size(75, 23);
+            hazardvidtester.Size = new Size(75, 78);
             hazardvidtester.TabIndex = 5;
-            hazardvidtester.Text = "button1";
+            hazardvidtester.Text = "Hazard Perception Test";
             hazardvidtester.UseVisualStyleBackColor = true;
             hazardvidtester.Click += hazardvidtester_Click;
             // 

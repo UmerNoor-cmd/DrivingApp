@@ -14,7 +14,10 @@ namespace WinFormsApp1
         public Hazard_perception_test()
         {
             InitializeComponent();
-
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+            this.Size = new System.Drawing.Size(1239, 649);
             // Configure axWindowsMediaPlayer on form load
             axWindowsMediaPlayer1.uiMode = "none"; // Hide user controls
             axWindowsMediaPlayer1.fullScreen = false;
@@ -56,10 +59,11 @@ namespace WinFormsApp1
             // Get the current position of the video
             double currentTime = axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
 
-            // Format the timestamp and add to the list
+            // Format the timestamp and add to the list with marker
             TimeSpan timestamp = TimeSpan.FromSeconds(currentTime);
             string formattedTime = timestamp.ToString(@"mm\:ss");
-            timestamps.Add(formattedTime);
+            string timestampWithMarker = $"⚑ {formattedTime}";
+            timestamps.Add(timestampWithMarker);
 
             // Update the timestamp display
             timestampDisplay.Text = string.Join("\n", timestamps);
@@ -74,31 +78,67 @@ namespace WinFormsApp1
                 videoTimer.Stop();
 
                 // Prepare the hardcoded timestamp for comparison (5 seconds)
-                string fiveSecondsTimestamp = "00:05";
-                double fiveSeconds = TimeSpan.Parse(fiveSecondsTimestamp).TotalSeconds;
+                double fiveSeconds = TimeSpan.Parse("00:05").TotalSeconds;
 
-                // Gather all timestamps and categorize them as correct or incorrect
+                // Gather all timestamps and categorize them as correct or incorrect with points
                 string resultText = "Flagged Timestamps:\n";
+                int totalPoints = 0;
+                bool pointsAdded = false; // Track if any points have been added
+
                 foreach (var timestamp in timestamps)
                 {
-                    // Convert the timestamp into seconds
-                    TimeSpan ts = TimeSpan.Parse(timestamp);
+                    // Extract time part from the formatted timestamp
+                    string timePart = timestamp.Substring(2); // Remove the ⚑ marker
+                    TimeSpan ts = TimeSpan.Parse(timePart);
                     double timestampInSeconds = ts.TotalSeconds;
 
-                    // Compare the timestamp to the "00:05" mark
-                    string correctness = timestampInSeconds <= fiveSeconds ? "Correct" : "Incorrect";
-
-                    if (correctness == "Correct")
+                    // Compare timestamp against each specific time point for points
+                    int points = 0;
+                    if (timestampInSeconds <= TimeSpan.Parse("00:01").TotalSeconds)
                     {
-                        correctClicks++;
+                        points = 5;
+                    }
+                    else if (timestampInSeconds <= TimeSpan.Parse("00:02").TotalSeconds)
+                    {
+                        points = 4;
+                    }
+                    else if (timestampInSeconds <= TimeSpan.Parse("00:03").TotalSeconds)
+                    {
+                        points = 3;
+                    }
+                    else if (timestampInSeconds <= TimeSpan.Parse("00:04").TotalSeconds)
+                    {
+                        points = 2;
+                    }
+                    else if (timestampInSeconds <= TimeSpan.Parse("00:05").TotalSeconds)
+                    {
+                        points = 1;
                     }
 
-                    resultText += $"{correctness}: {timestamp}\n";
+                    // Only add the first set of points within each interval
+                    if (points > 0 && !pointsAdded)
+                    {
+                        correctClicks += points;
+                        pointsAdded = true; // Mark points as added
+                    }
+
+                    // Append the result to the display text
+                    resultText += $"{(points > 0 ? "Correct" : "Incorrect")}: {timestamp} (+{points} points)\n";
                 }
 
-                // Show the result as a message box
-                MessageBox.Show($"{resultText}Your total points: {correctClicks}", "Final Points", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Show the result as a message box {resultText}
+                MessageBox.Show($"Your total points: {correctClicks}", "Final Points", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
     }
+
+
+
 }
+
+
+
+
+
+
