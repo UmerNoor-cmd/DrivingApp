@@ -44,6 +44,13 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
+
+        private void hazardvidtester_Click(object sender, EventArgs e)
+        {
+            Hazard_perception_test nextForm = new Hazard_perception_test();
+            nextForm.Show();
+            this.Hide();
+        }
     }
     //completed
 

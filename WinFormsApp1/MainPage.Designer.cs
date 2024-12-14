@@ -33,6 +33,7 @@
             Settings = new Button();
             Signs = new Button();
             Progress = new Button();
+            hazardvidtester = new Button();
             SuspendLayout();
             // 
             // Practice
@@ -90,11 +91,22 @@
             Progress.UseVisualStyleBackColor = true;
             Progress.Click += Progress_Click;
             // 
+            // hazardvidtester
+            // 
+            hazardvidtester.Location = new Point(38, 52);
+            hazardvidtester.Name = "hazardvidtester";
+            hazardvidtester.Size = new Size(75, 23);
+            hazardvidtester.TabIndex = 5;
+            hazardvidtester.Text = "button1";
+            hazardvidtester.UseVisualStyleBackColor = true;
+            hazardvidtester.Click += hazardvidtester_Click;
+            // 
             // MainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(hazardvidtester);
             Controls.Add(Progress);
             Controls.Add(Signs);
             Controls.Add(Settings);
@@ -113,5 +125,6 @@
         private Button Settings;
         private Button Signs;
         private Button Progress;
+        private Button hazardvidtester;
     }
 }
