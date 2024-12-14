@@ -47,7 +47,7 @@ namespace WinFormsApp1
 
         private void hazardvidtester_Click(object sender, EventArgs e)
         {
-            Hazard_perception_test nextForm = new Hazard_perception_test();
+            Hazard_info nextForm = new Hazard_info();
             nextForm.Show();
             this.Hide();
         }
