@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -274,14 +275,35 @@ namespace WinFormsApp1
             // Clear the form
             Controls.Clear();
 
-
-
             // Save the score globally with the test index
             if (selectedTest != null)
             {
                 int testIndex = tests.IndexOf(selectedTest) + 1; // Test index starts from 1
                 GlobalData.PracticeScores[testIndex] = score; // Save the score for this test
             }
+
+            // Update the score in the text file
+            string filePath = "PracticeScores.txt";
+            List<string> fileLines = File.Exists(filePath) ? new List<string>(File.ReadAllLines(filePath)) : new List<string>();
+            string testIdentifier = $"Test: {testNameLabel.Text}";
+
+            // Find if this test's score already exists
+            int existingIndex = fileLines.FindIndex(line => line.StartsWith(testIdentifier));
+            string updatedScoreText = $"{testIdentifier}, Score: {score}/{selectedTest?.Questions.Count}";
+
+            if (existingIndex >= 0)
+            {
+                // Replace the old score with the new one
+                fileLines[existingIndex] = updatedScoreText;
+            }
+            else
+            {
+                // Add the new score
+                fileLines.Add(updatedScoreText);
+            }
+
+            // Write all lines back to the file
+            File.WriteAllLines(filePath, fileLines);
 
             // Display the final score
             Label scoreLabel = new Label
@@ -303,6 +325,7 @@ namespace WinFormsApp1
 
             Controls.Add(finishButton);
         }
+
 
         private void Backform_Click(object sender, EventArgs e)
         {

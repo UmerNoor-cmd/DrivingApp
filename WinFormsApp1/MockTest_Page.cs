@@ -178,6 +178,7 @@ namespace WinFormsApp1
         {
             Size = new Size(1078, 481);
 
+
             if (currentQuestionIndex >= selectedTest.Count)
             {
                 quizTimer.Stop();
@@ -311,6 +312,9 @@ namespace WinFormsApp1
             if (!GlobalData.TestScores.ContainsKey(testNumber))
                 GlobalData.TestScores[testNumber] = score;
 
+            // Save the score to the shared file
+            SaveScoreToFile(testNumber, score);
+
             // Create a scrollable panel
             Panel scrollablePanel = new Panel
             {
@@ -414,6 +418,46 @@ namespace WinFormsApp1
             };
             scrollablePanel.Controls.Add(finishButton);
         }
+
+        // Method to save the score to a single file
+        private void SaveScoreToFile(int testNumber, int score)
+        {
+            string filePath = "Mock_Score.txt"; // Single file for all scores
+
+            // Format the score line for the current test
+            string scoreLine = $"Test: Test {testNumber}, Score: {score}/{selectedTest.Count}";
+
+            // Check if the file exists
+            if (File.Exists(filePath))
+            {
+                // Append the score to the file, replacing the old score for the specific test
+                var lines = File.ReadAllLines(filePath).ToList();
+
+                bool testFound = false;
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    if (lines[i].StartsWith($"Test: Test {testNumber}"))
+                    {
+                        lines[i] = scoreLine; // Replace the old score
+                        testFound = true;
+                        break;
+                    }
+                }
+
+                if (!testFound)
+                {
+                    lines.Add(scoreLine); // Add the new test score if not found
+                }
+
+                File.WriteAllLines(filePath, lines); // Write the updated scores back to the file
+            }
+            else
+            {
+                // If the file does not exist, create it and write the score
+                File.WriteAllText(filePath, scoreLine);
+            }
+        }
+
 
 
 

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -19,19 +21,95 @@ namespace WinFormsApp1
             { 3, 30 }
         };
 
-        public Progress_Page(Dictionary<int, int> mockScores, Dictionary<int, int> practiceScores)
+
+
+        private Dictionary<int, int> LoadMockScores(string filePath)
+        {
+            var scores = new Dictionary<int, int>();
+
+            if (!File.Exists(filePath))
+            {
+                Debug.WriteLine($"File {filePath} does not exist.");
+                return scores; // Return an empty dictionary if the file does not exist
+            }
+
+            var lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                try
+                {
+                    // Split the line using a format that matches the "Test: Test 1, Score: 0/3"
+                    var parts = line.Split(new[] { "Test: ", ", Score: " }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 2
+                        && parts[0].StartsWith("Test ")
+                        && int.TryParse(parts[0].Replace("Test ", string.Empty), out int testNumber)
+                        && int.TryParse(parts[1].Split('/')[0], out int score))
+                    {
+                        scores[testNumber] = score;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error parsing line: {line}. Exception: {ex.Message}");
+                }
+            }
+
+            return scores;
+        }
+
+
+        private Dictionary<int, int> LoadPracticeScores(string filePath)
+        {
+            var scores = new Dictionary<int, int>();
+
+            if (!File.Exists(filePath))
+            {
+                Debug.WriteLine($"File {filePath} does not exist.");
+                return scores; // Return an empty dictionary if the file does not exist
+            }
+
+            var lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                try
+                {
+                    // Split the line using a format that matches the "Test: Test 1, Score: 2/3"
+                    var parts = line.Split(new[] { "Test: ", ", Score: " }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 2
+                        && parts[0].StartsWith("Test ")
+                        && int.TryParse(parts[0].Replace("Test ", string.Empty), out int testNumber)
+                        && int.TryParse(parts[1].Split('/')[0], out int score))
+                    {
+                        scores[testNumber] = score;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error parsing line: {line}. Exception: {ex.Message}");
+                }
+            }
+
+            return scores;
+        }
+
+        public Progress_Page()
         {
             InitializeComponent();
 
-            mockTestScores = mockScores;
-            practiceTestScores = practiceScores;
+            // Load mock test scores from the new file
+            string mockScoresFilePath = "Mock_Score.txt";
+            mockTestScores = LoadMockScores(mockScoresFilePath);
+
+            // Load practice test scores from the saved file
+            string practiceScoresFilePath = "PracticeScores.txt";
+            practiceTestScores = LoadPracticeScores(practiceScoresFilePath);
 
             InitializeProgressBar();
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Settings_Page.GlobalBackgroundColor;
             this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
-
         }
+
 
         private void InitializeProgressBar()
         {
@@ -90,14 +168,13 @@ namespace WinFormsApp1
             viewFlaggedQuestionsButton.Click += ViewFlaggedQuestionsButton_Click;
             Controls.Add(viewFlaggedQuestionsButton);
 
-
             // Topics Completed Label
             topicsCompletedLabel = new Label
             {
                 Text = "Topics Completed: None",
                 Font = new Font("Arial", 12, FontStyle.Bold),
                 AutoSize = true,
-                Location = new Point(20, yPosition )
+                Location = new Point(20, yPosition)
             };
             Controls.Add(topicsCompletedLabel);
 
@@ -181,17 +258,46 @@ namespace WinFormsApp1
                 return; // Exit if not initialized
             }
 
-            if (Traffic_Signs_page.CompletedTopics.Any())
+            // Define the path to the file
+            string filePath = "data.txt";
+            if (!File.Exists(filePath))
             {
-                topicsCompletedLabel.Text = "Topics Completed: " +
-                                            string.Join(", ", Traffic_Signs_page.CompletedTopics);
+                Debug.WriteLine($"File {filePath} does not exist.");
+                return;
+            }
+
+            // Read the file content and parse it
+            var completedTopics = new List<string>();
+
+            try
+            {
+                var lines = File.ReadAllLines(filePath);
+
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(':');
+                    if (parts.Length == 2 && bool.TryParse(parts[1], out bool isCompleted) && isCompleted)
+                    {
+                        completedTopics.Add(parts[0].Trim());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error reading or parsing file {filePath}: {ex.Message}");
+                return;
+            }
+
+            // Update the label with the completed topics
+            if (completedTopics.Any())
+            {
+                topicsCompletedLabel.Text = "Topics Completed: " + string.Join(", ", completedTopics);
             }
             else
             {
                 topicsCompletedLabel.Text = "Topics Completed: None";
             }
         }
-
 
     }
 }

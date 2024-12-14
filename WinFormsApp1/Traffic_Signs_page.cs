@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -26,6 +27,9 @@ namespace WinFormsApp1
             this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
 
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            // Load data from file on form load
+            LoadData();
         }
 
         private void RestoreCheckboxStates()
@@ -49,6 +53,7 @@ namespace WinFormsApp1
         {
             if (isCompleted)
             {
+                // Add topic to CompletedTopics only if it's not already there
                 if (!CompletedTopics.Contains(topic))
                 {
                     CompletedTopics.Add(topic);
@@ -64,7 +69,89 @@ namespace WinFormsApp1
 
             // Debug logging for validation
             Console.WriteLine($"Updated Checkbox State: {topic} = {isCompleted}");
+
+            // Save data to file
+            SaveData();
         }
+
+
+
+        private void SaveData()
+        {
+            try
+            {
+                // Use a HashSet to ensure uniqueness
+                var uniqueTopics = new HashSet<string>();
+
+                // Include topics from the CompletedTopics list
+                foreach (var topic in CompletedTopics)
+                {
+                    uniqueTopics.Add(topic.Trim());
+                }
+
+                // Save unique topics and checkbox states to the file
+                using (StreamWriter writer = new StreamWriter("data.txt"))
+                {
+                    // Write unique completed topics
+                    writer.WriteLine(string.Join(",", uniqueTopics));
+
+                    // Write checkbox states
+                    foreach (var entry in CheckboxStates)
+                    {
+                        writer.WriteLine($"{entry.Key}:{entry.Value}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving data: " + ex.Message);
+            }
+        }
+
+        private void LoadData()
+        {
+            try
+            {
+                if (File.Exists("data.txt"))
+                {
+                    using (StreamReader reader = new StreamReader("data.txt"))
+                    {
+                        var uniqueTopics = new HashSet<string>();
+                        string line;
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (line.Contains(":"))
+                            {
+                                var parts = line.Split(':');
+                                CheckboxStates[parts[0]] = bool.Parse(parts[1]);
+                            }
+                            else
+                            {
+                                // Handle comma-separated topics and add to the set
+                                var topics = line.Split(',');
+                                foreach (var topic in topics)
+                                {
+                                    uniqueTopics.Add(topic.Trim());
+                                }
+                            }
+                        }
+
+                        // Update the CompletedTopics list with unique values
+                        CompletedTopics = new List<string>(uniqueTopics);
+
+                        // Restore checkbox states
+                        RestoreCheckboxStates();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading data: " + ex.Message);
+            }
+        }
+
+
 
         private void Giving_Order_Complete_CheckedChanged(object sender, EventArgs e)
         {
@@ -132,3 +219,4 @@ namespace WinFormsApp1
         }
     }
 }
+
