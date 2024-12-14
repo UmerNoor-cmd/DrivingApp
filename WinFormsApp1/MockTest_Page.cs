@@ -470,18 +470,57 @@ namespace WinFormsApp1
 
         private void Flag_Click(object? sender, EventArgs e)
         {
+            string filePath = "Flagged_Questions.txt";
+
+            Question currentQuestion = selectedTest[currentQuestionIndex];
+            string flaggedQuestionEntry = $"Test {testNumber}, Question {currentQuestionIndex + 1}:{Environment.NewLine}" +
+                                          $"Question: {currentQuestion.Text}{Environment.NewLine}" +
+                                          $"Answer: {currentQuestion.Options[currentQuestion.CorrectOptionIndex]}{Environment.NewLine}";
+
             // Toggle flag for the current question
             if (flaggedQuestions.Contains(currentQuestionIndex))
             {
                 flaggedQuestions.Remove(currentQuestionIndex);
                 flagButton.Text = "Flag";
+
+                // Remove the question from the file
+                if (File.Exists(filePath))
+                {
+                    var lines = File.ReadAllLines(filePath).ToList();
+                    // Remove the entry by finding its start and end
+                    int startIndex = lines.FindIndex(line => line.StartsWith($"Test {testNumber}, Question {currentQuestionIndex + 1}:"));
+                    if (startIndex != -1)
+                    {
+                        // Remove the related lines for the question entry
+                        int endIndex = startIndex + 2; // Assuming the question has 3 lines
+                        lines.RemoveRange(startIndex, endIndex - startIndex + 1);
+                        File.WriteAllLines(filePath, lines);
+                    }
+                }
             }
             else
             {
                 flaggedQuestions.Add(currentQuestionIndex);
                 flagButton.Text = "Unflag";
+
+                // Check if the file exists
+                if (!File.Exists(filePath))
+                {
+                    // Create the file and add the current flagged question
+                    File.WriteAllText(filePath, flaggedQuestionEntry + Environment.NewLine);
+                }
+                else
+                {
+                    // Append the flagged question if it doesn't already exist
+                    var lines = File.ReadAllLines(filePath);
+                    if (!lines.Contains($"Test {testNumber}, Question {currentQuestionIndex + 1}:"))
+                    {
+                        File.AppendAllText(filePath, flaggedQuestionEntry + Environment.NewLine);
+                    }
+                }
             }
         }
+
 
         private void MockTest_Page_Load(object sender, EventArgs e)
         {

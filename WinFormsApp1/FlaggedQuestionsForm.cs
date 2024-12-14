@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
@@ -14,7 +15,6 @@ namespace WinFormsApp1
             this.StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Settings_Page.GlobalBackgroundColor;
             this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
-
         }
 
         private void DisplayFlaggedQuestions()
@@ -40,33 +40,74 @@ namespace WinFormsApp1
 
             int yPosition = titleLabel.Bottom + 30;
 
-            foreach (var test in GlobalData.FlaggedQuestions)
+            // Path to the file containing flagged questions
+            string filePath = "Flagged_Questions.txt";
+
+            if (!File.Exists(filePath))
             {
-                Label testLabel = new Label
+                Label noDataLabel = new Label
                 {
-                    Text = $"Test {test.Key}:",
-                    Font = new Font("Arial", 12, FontStyle.Bold | FontStyle.Underline),
+                    Text = "No flagged questions found.",
+                    Font = new Font("Arial", 12, FontStyle.Italic),
                     AutoSize = true,
                     Location = new Point(20, yPosition)
                 };
-                scrollablePanel.Controls.Add(testLabel);
+                scrollablePanel.Controls.Add(noDataLabel);
+                return;
+            }
 
-                yPosition += 30;
+            try
+            {
+                // Read all lines from the file
+                var lines = File.ReadAllLines(filePath);
 
-                foreach (int questionIndex in test.Value)
+                string currentTest = string.Empty;
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    Question question = GlobalData.AllTests[test.Key - 1][questionIndex]; // Get the flagged question
-                    Label questionLabel = new Label
-                    {
-                        Text = $"Q: {question.Text}\nA: {question.Options[question.CorrectOptionIndex]}",
-                        Font = new Font("Arial", 10, FontStyle.Regular),
-                        AutoSize = true,
-                        Location = new Point(40, yPosition)
-                    };
-                    scrollablePanel.Controls.Add(questionLabel);
+                    string line = lines[i].Trim();
 
-                    yPosition += 50;
+                    // Check if the line contains a test identifier
+                    if (line.StartsWith("Test") && line.Contains(", Question"))
+                    {
+                        currentTest = line; // Store the test identifier
+                        Label testLabel = new Label
+                        {
+                            Text = currentTest,
+                            Font = new Font("Arial", 12, FontStyle.Bold | FontStyle.Underline),
+                            AutoSize = true,
+                            Location = new Point(20, yPosition)
+                        };
+                        scrollablePanel.Controls.Add(testLabel);
+                        yPosition += 30;
+                    }
+                    else if (line.StartsWith("Question:"))
+                    {
+                        string questionText = line.Substring("Question:".Length).Trim();
+                        string answerText = lines[++i].Substring("Answer:".Length).Trim();
+
+                        Label questionLabel = new Label
+                        {
+                            Text = $"Q: {questionText}\nA: {answerText}",
+                            Font = new Font("Arial", 10, FontStyle.Regular),
+                            AutoSize = true,
+                            Location = new Point(40, yPosition)
+                        };
+                        scrollablePanel.Controls.Add(questionLabel);
+
+                        yPosition += 50;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Label errorLabel = new Label
+                {
+                    Text = $"Error reading flagged questions: {ex.Message}",
+                    Font = new Font("Arial", 10, FontStyle.Bold),
+                    AutoSize = true,
+                    Location = new Point(20, yPosition)
+                };
+                scrollablePanel.Controls.Add(errorLabel);
             }
 
             Button closeButton = new Button
@@ -83,4 +124,3 @@ namespace WinFormsApp1
         }
     }
 }
-
