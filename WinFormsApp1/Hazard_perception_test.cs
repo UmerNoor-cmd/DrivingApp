@@ -18,123 +18,117 @@ namespace WinFormsApp1
             this.BackColor = Settings_Page.GlobalBackgroundColor;
             this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
             this.Size = new System.Drawing.Size(1239, 649);
-            // Configure axWindowsMediaPlayer on form load
+
             axWindowsMediaPlayer1.uiMode = "none"; // Hide user controls
             axWindowsMediaPlayer1.fullScreen = false;
             axWindowsMediaPlayer1.stretchToFit = true;
 
-            // Initialize the timer
+            // Timer setup
             videoTimer = new System.Windows.Forms.Timer();
             videoTimer.Interval = 1000; // Check every second
             videoTimer.Tick += VideoTimer_Tick;
 
-            // Initialize the counter for correct clicks
             correctClicks = 0;
 
-            // Initialize the label to display timestamps
-            timestampDisplay = new Label();
-            timestampDisplay.Location = new System.Drawing.Point(943, 28); // Adjust location as needed
-            timestampDisplay.Size = new System.Drawing.Size(200, 300); // Size of the display area
-            timestampDisplay.BorderStyle = BorderStyle.FixedSingle;
+            // Initialize timestamp display
+            timestampDisplay = new Label
+            {
+                Location = new System.Drawing.Point(943, 28),
+                Size = new System.Drawing.Size(200, 300),
+                BorderStyle = BorderStyle.FixedSingle
+            };
             this.Controls.Add(timestampDisplay);
 
-            // List to store timestamps
             timestamps = new System.Collections.Generic.List<string>();
 
-            // Event handlers for clicks on the video player
             axWindowsMediaPlayer1.ClickEvent += Video_Click;
+            axWindowsMediaPlayer1.PlayStateChange += AxWindowsMediaPlayer1_PlayStateChange;
         }
 
         private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
         {
-            axWindowsMediaPlayer1.URL = "MY EYES  _ Miles Morales Edit (4K).mp4"; // Set the path to your video
-            axWindowsMediaPlayer1.Ctlcontrols.play(); // Play video automatically
-
-            // Start the timer to monitor video end
+            axWindowsMediaPlayer1.URL = "Video_1.mp4";
+            axWindowsMediaPlayer1.Ctlcontrols.play();
             videoTimer.Start();
         }
 
         private void Video_Click(object sender, _WMPOCXEvents_ClickEvent e)
         {
-            // Get the current position of the video
             double currentTime = axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
-
-            // Format the timestamp and add to the list with marker
             TimeSpan timestamp = TimeSpan.FromSeconds(currentTime);
             string formattedTime = timestamp.ToString(@"mm\:ss");
             string timestampWithMarker = $"⚑ {formattedTime}";
             timestamps.Add(timestampWithMarker);
 
-            // Update the timestamp display
             timestampDisplay.Text = string.Join("\n", timestamps);
         }
 
         private void VideoTimer_Tick(object sender, EventArgs e)
         {
-            // Check if the video has reached its end
+            // Fallback: Ensure we stop when video ends
             if (axWindowsMediaPlayer1.Ctlcontrols.currentPosition >= axWindowsMediaPlayer1.currentMedia.duration)
             {
-                // Video has ended, stop the timer
                 videoTimer.Stop();
-
-                // Prepare the hardcoded timestamp for comparison (5 seconds)
-                double fiveSeconds = TimeSpan.Parse("00:05").TotalSeconds;
-
-                // Gather all timestamps and categorize them as correct or incorrect with points
-                string resultText = "Flagged Timestamps:\n";
-                int totalPoints = 0;
-                bool pointsAdded = false; // Track if any points have been added
-
-                foreach (var timestamp in timestamps)
-                {
-                    // Extract time part from the formatted timestamp
-                    string timePart = timestamp.Substring(2); // Remove the ⚑ marker
-                    TimeSpan ts = TimeSpan.Parse(timePart);
-                    double timestampInSeconds = ts.TotalSeconds;
-
-                    // Compare timestamp against each specific time point for points
-                    int points = 0;
-                    if (timestampInSeconds <= TimeSpan.Parse("00:01").TotalSeconds)
-                    {
-                        points = 5;
-                    }
-                    else if (timestampInSeconds <= TimeSpan.Parse("00:02").TotalSeconds)
-                    {
-                        points = 4;
-                    }
-                    else if (timestampInSeconds <= TimeSpan.Parse("00:03").TotalSeconds)
-                    {
-                        points = 3;
-                    }
-                    else if (timestampInSeconds <= TimeSpan.Parse("00:04").TotalSeconds)
-                    {
-                        points = 2;
-                    }
-                    else if (timestampInSeconds <= TimeSpan.Parse("00:05").TotalSeconds)
-                    {
-                        points = 1;
-                    }
-
-                    // Only add the first set of points within each interval
-                    if (points > 0 && !pointsAdded)
-                    {
-                        correctClicks += points;
-                        pointsAdded = true; // Mark points as added
-                    }
-
-                    // Append the result to the display text
-                    resultText += $"{(points > 0 ? "Correct" : "Incorrect")}: {timestamp} (+{points} points)\n";
-                }
-
-                // Show the result as a message box {resultText}
-                MessageBox.Show($"Your total points: {correctClicks}", "Final Points", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ShowResults();
             }
         }
 
+        private void AxWindowsMediaPlayer1_PlayStateChange(object sender, _WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            // Detect when the video has stopped
+            if (e.newState == (int)WMPLib.WMPPlayState.wmppsStopped)
+            {
+                videoTimer.Stop();
+                ShowResults();
+            }
+        }
+        private void ShowResults()
+        {
+            string resultText = "Flagged Timestamps:\n";
+            bool pointsAdded = false;
+
+            foreach (var timestamp in timestamps)
+            {
+                string timePart = timestamp.Substring(2); // Remove the ⚑ marker
+                TimeSpan ts = TimeSpan.Parse(timePart);
+                double timestampInSeconds = ts.TotalSeconds;
+
+                int points = 0;
+                if (timestampInSeconds >= TimeSpan.Parse("00:31").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:32").TotalSeconds)
+                {
+                    points = 5;
+                }
+                else if (timestampInSeconds >= TimeSpan.Parse("00:32").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:33").TotalSeconds)
+                {
+                    points = 4;
+                }
+                else if (timestampInSeconds >= TimeSpan.Parse("00:33").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:34").TotalSeconds)
+                {
+                    points = 3;
+                }
+                else if (timestampInSeconds >= TimeSpan.Parse("00:34").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:35").TotalSeconds)
+                {
+                    points = 2;
+                }
+                else if (timestampInSeconds >= TimeSpan.Parse("00:35").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:36").TotalSeconds)
+                {
+                    points = 1;
+                }
+
+                // Only add the first set of points within each interval
+                if (points > 0 && !pointsAdded)
+                {
+                    correctClicks += points;
+                    pointsAdded = true;
+                }
+
+                resultText += $"{(points > 0 ? "Correct" : "Incorrect")}: {timestamp} (+{points} points)\n";
+            }
+
+            MessageBox.Show($"{resultText}Your total points: {correctClicks}", "Final Points", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
     }
-
-
-
 }
 
 
