@@ -15,7 +15,7 @@ namespace WinFormsApp1
         public Hazard_info()
         {
             Text = "Instructions";
-            Size = new Size(850, 400);
+            Size = new Size(850, 450);
             StartPosition = FormStartPosition.CenterScreen;
             this.BackColor = Settings_Page.GlobalBackgroundColor;
             this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
@@ -24,14 +24,14 @@ namespace WinFormsApp1
             // Instructions Label
             Label instructionsLabel = new Label
             {
-                Text = "This test has 2 clips. You can score up to 5 points for each hazard. You need to get 5 points or more in total to pass. \r\n\r\n" +
+                Text = "This test has 3 clips. You can score up to 5 points for each hazard. You need to get 5 points or more in total to pass. \r\n\r\n" +
                 "Each clip features everyday road scenes\r\ncontains one 'developing hazard'." +
                 "\r\n\r\nYou get points for spotting the developing hazards as soon as they start to happen. " +
                 "\r\n\r\nA developing hazard is something that would cause you to take action, like changing speed or direction." +
                 "\r\n\r\nClick as soon as you see a hazard starting to develop on the video.\r\nYou don't lose points if you click and get it wrong." +
                 "\r\n\r\n However, you shouldn't click continuously or in a pattern. " +
-                "\r\n\r\nIn the real test you will fail if you do this." +
-                           "Please read the instructions carefully before starting.",
+                "\r\n\r\nIn the real test you will fail if you do this. You can't Quit Once the Test Starts" +
+                           "\r\n\r\nPlease read the instructions carefully before starting.",
                 AutoSize = true,
                 Location = new Point(20, 20),
                 Font = new Font("Arial", 10, FontStyle.Regular)

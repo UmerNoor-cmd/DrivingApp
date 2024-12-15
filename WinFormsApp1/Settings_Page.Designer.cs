@@ -30,6 +30,7 @@
         {
             button1 = new Button();
             Change_Color = new Button();
+            reset = new Button();
             SuspendLayout();
             // 
             // button1
@@ -52,11 +53,22 @@
             Change_Color.UseVisualStyleBackColor = true;
             Change_Color.Click += Change_Color_Click;
             // 
+            // reset
+            // 
+            reset.Location = new Point(133, 192);
+            reset.Name = "reset";
+            reset.Size = new Size(100, 38);
+            reset.TabIndex = 2;
+            reset.Text = "Reset";
+            reset.UseVisualStyleBackColor = true;
+            reset.Click += reset_Click;
+            // 
             // Settings_Page
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(353, 242);
+            Controls.Add(reset);
             Controls.Add(Change_Color);
             Controls.Add(button1);
             Name = "Settings_Page";
@@ -68,5 +80,6 @@
 
         private Button button1;
         private Button Change_Color;
+        private Button reset;
     }
 }

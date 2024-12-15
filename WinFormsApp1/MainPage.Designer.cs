@@ -62,6 +62,7 @@
             // 
             // Settings
             // 
+            Settings.Cursor = Cursors.Hand;
             Settings.Location = new Point(726, 12);
             Settings.Name = "Settings";
             Settings.Size = new Size(62, 39);
@@ -73,6 +74,7 @@
             // Signs
             // 
             Signs.BackColor = Color.Coral;
+            Signs.Cursor = Cursors.Hand;
             Signs.Location = new Point(375, 105);
             Signs.Name = "Signs";
             Signs.Size = new Size(75, 78);
@@ -83,6 +85,7 @@
             // 
             // Progress
             // 
+            Progress.Cursor = Cursors.Hand;
             Progress.Location = new Point(441, 215);
             Progress.Name = "Progress";
             Progress.Size = new Size(75, 78);
@@ -93,6 +96,7 @@
             // 
             // hazardvidtester
             // 
+            hazardvidtester.Cursor = Cursors.Hand;
             hazardvidtester.Location = new Point(310, 215);
             hazardvidtester.Name = "hazardvidtester";
             hazardvidtester.Size = new Size(75, 78);

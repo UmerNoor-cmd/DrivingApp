@@ -44,7 +44,7 @@ namespace WinFormsApp1
                 Maximum = fontSizes.Length - 1,
                 TickStyle = TickStyle.Both,
                 Location = new Point(83, 100),
-                
+
                 Width = 200
             };
             fontSizeSlider.Value = Array.IndexOf(fontSizes, (int)GlobalFontSize); // Set default value
@@ -123,6 +123,52 @@ namespace WinFormsApp1
             nextForm.Show();
             this.Hide();
         }
+
+        private void reset_Click(object sender, EventArgs e)
+        {
+            // File paths (update these with the correct file paths as needed)
+            string[] filesToDelete = {
+        "PracticeScores.txt",
+        "Mock_Score.txt",
+        "Flagged_Questions.txt",
+        "data.txt"
+    };
+
+            bool filesDeleted = false; // Track if any files were deleted
+            bool filesExist = false;  // Track if any files existed
+
+            foreach (string file in filesToDelete)
+            {
+                try
+                {
+                    if (System.IO.File.Exists(file))
+                    {
+                        filesExist = true;
+                        System.IO.File.Delete(file);
+                        filesDeleted = true; // Mark that at least one file was deleted
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while deleting '{file}': {ex.Message}", "Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Exit the method on error
+                }
+            }
+
+            // Show appropriate message after processing all files
+            if (filesDeleted)
+            {
+                MessageBox.Show("Data has been deleted.", "Reset",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (!filesExist)
+            {
+                MessageBox.Show("No data to reset.", "Reset",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
 
     }
 }

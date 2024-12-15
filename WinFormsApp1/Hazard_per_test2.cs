@@ -1,17 +1,25 @@
 ﻿using AxWMPLib;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class Hazard_perception_test : Form
+    public partial class Hazard_per_test2 : Form
     {
         private int correctClicks;
         private System.Windows.Forms.Timer videoTimer;
         private Label timestampDisplay;
+
         private System.Collections.Generic.List<string> timestamps;
 
-        public Hazard_perception_test()
+        public Hazard_per_test2()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -45,9 +53,10 @@ namespace WinFormsApp1
             axWindowsMediaPlayer1.PlayStateChange += AxWindowsMediaPlayer1_PlayStateChange;
         }
 
-        private void axWindowsMediaPlayer1_Enter(object sender, EventArgs e)
+
+        private void axWindowsMediaPlayer1_Enter_1(object sender, EventArgs e)
         {
-            axWindowsMediaPlayer1.URL = "Video_1.mp4";
+            axWindowsMediaPlayer1.URL = "Video_2.mp4";
             axWindowsMediaPlayer1.Ctlcontrols.play();
             videoTimer.Start();
         }
@@ -103,23 +112,23 @@ namespace WinFormsApp1
                 double timestampInSeconds = ts.TotalSeconds;
 
                 int points = 0;
-                if (timestampInSeconds >= TimeSpan.Parse("00:31").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:32").TotalSeconds)
+                if (timestampInSeconds >= TimeSpan.Parse("00:46").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:47").TotalSeconds)
                 {
                     points = 5;
                 }
-                else if (timestampInSeconds >= TimeSpan.Parse("00:32").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:33").TotalSeconds)
+                else if (timestampInSeconds >= TimeSpan.Parse("00:47").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:48").TotalSeconds)
                 {
                     points = 4;
                 }
-                else if (timestampInSeconds >= TimeSpan.Parse("00:33").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:34").TotalSeconds)
+                else if (timestampInSeconds >= TimeSpan.Parse("00:48").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:49").TotalSeconds)
                 {
                     points = 3;
                 }
-                else if (timestampInSeconds >= TimeSpan.Parse("00:34").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:35").TotalSeconds)
+                else if (timestampInSeconds >= TimeSpan.Parse("00:49").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:50").TotalSeconds)
                 {
                     points = 2;
                 }
-                else if (timestampInSeconds >= TimeSpan.Parse("00:35").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:36").TotalSeconds)
+                else if (timestampInSeconds >= TimeSpan.Parse("00:50").TotalSeconds && timestampInSeconds < TimeSpan.Parse("00:51").TotalSeconds)
                 {
                     points = 1;
                 }
@@ -162,7 +171,7 @@ namespace WinFormsApp1
             {
                 resultsForm.Close();
                 // Open the next form with the new video
-                Hazard_per_test2 nextForm = new Hazard_per_test2(); // Replace with your next form logic
+                Hazard_per_test3 nextForm = new Hazard_per_test3(); // Replace with your next form logic
                 nextForm.Show();
                 this.Close();
             };
@@ -175,9 +184,3 @@ namespace WinFormsApp1
 
     }
 }
-
-
-
-
-
-
