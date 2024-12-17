@@ -543,7 +543,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Turn left for parking area", "No entry for traffic turning left", "No through road on the left", "Turn left for ferry terminal" },
                             CorrectOptionIndex = 0,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\No_through_road_on_the_left.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\No_through_road_on_the_left.PNG") // Add a valid image file path
                         },
                 new Question{Text = "What's the purpose of road humps, chicanes and narrowings?",Options = new List<string>{"To reduce traffic speed","To separate lanes of traffic","To allow pedestrians to cross","To increase traffic speed"},CorrectOptionIndex = 0},
                 new Question{Text = "What requires extra care when you're driving or riding in windy conditions?",Options = new List<string>{"Passing pedal cyclists","Turning into a narrow road","Moving off on a hill","Using the brakes"},CorrectOptionIndex = 0},
@@ -556,7 +556,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "No cars", "Motorcycles only", "No motorcycles", "Cars only" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\No_motorcycles.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\No_motorcycles.PNG") // Add a valid image file path
                         },
                 new Question{Text = "What must you do when you're overtaking a car at night?",Options = new List<string>{"Select a higher gear","Flash your headlights before overtaking","Make sure you don't dazzle other road users","Switch your headlights to main beam before overtaking"},CorrectOptionIndex = 2},
                 new Question{Text = "You've just gone through flood water. What should you do to make sure your brakes are working properly?",Options = new List<string>{"Stop for at least an hour to allow them time to dry","Avoid using the brakes at all for a few miles","Go slowly while gently applying the brakes","Accelerate and keep to a high speed for a short time"},CorrectOptionIndex = 2},
@@ -571,7 +571,7 @@ namespace WinFormsApp1
                             Text = "You're on a motorway. A lorry has stopped in the right-hand lane. What should you do when you see this sign on the lorry?:",
                             Options = new List<string> { "Stop behind the flashing lights", "Move into the right-hand lane", "Pass the lorry on the left", "Leave the motorway at the next exit" },
                             CorrectOptionIndex = 0,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Pass_the_lorry_on_the_left.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Pass_the_lorry_on_the_left.PNG") // Add a valid image file path
                         },
                 new Question{Text = "You're about to overtake a cyclist. Why should you leave them as much room as you would give to a car?",Options = new List<string>{"The cyclist might speed up","The cyclist might have to make a left turn","The cyclist might get off their bicycle","The cyclist might be unsettled if you pass too near them"},CorrectOptionIndex = 3},
                 new Question{Text = "You're the first person to arrive at an incident where people are badly injured. You've switched on your hazard warning lights and checked all engines are stopped. What else should you do?",Options = new List<string>{"Stop other cars and ask the drivers for help","Move the people who are injured clear of their vehicles","Try and get people who are injured to drink something","Make sure that an ambulance has been called"},CorrectOptionIndex = 3},
@@ -584,7 +584,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Bend to the right", "No traffic from the right", "No right turn", "Road on the right closed" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\No_right_turn.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\No_right_turn.PNG") // Add a valid image file path
                         },                
                 new Question{Text = "You're towing a small trailer on a busy three-lane motorway. When may you use the right-hand lane?",Options = new List<string>{"When there are slower vehicles in the other lanes","When you can keep up with the other traffic","When you're overtaking","You mustn't use the right-hand lane"},CorrectOptionIndex = 3},
                 new Question{Text = "You're carrying two 13-year-old children and their parents in your car. Who's responsible for seeing that the children wear seat belts?",Options = new List<string>{"The front-seat passenger","You, the driver","The children","The children's parents"},CorrectOptionIndex = 1},
@@ -594,7 +594,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "A pedestrian zone", "A diversion route", "A picnic area", "A cycle route" },
                             CorrectOptionIndex = 1,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\A_diversion_route.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\A_diversion_route.PNG") // Add a valid image file path
                         },               
                 new Question{Text = "You're turning right onto a dual carriageway. What should you do before emerging?",Options = new List<string>{"Stop, apply the handbrake and then select a low gear","Position your vehicle well to the left of the side road","Check that the central reservation is wide enough for your vehicle","Make sure that you leave enough room for a vehicle behind"},CorrectOptionIndex = 2},
                 new Question{Text = "You're driving at night with your headlights on main beam. A vehicle is overtaking you. When should you dip your headlights?",Options = new List<string>{"Some time after the vehicle has passed you","Before the vehicle starts to pass you","Only if the other driver dips their headlights","As soon as the vehicle passes you"},CorrectOptionIndex = 1}},
@@ -609,7 +609,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "No waiting for buses and cycles", "No buses and cycles allowed", "With-flow bus and cycle lane", "Contraflow bus and cycle lane" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\With-flow_bus_and_cycle_lane.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\With-flow_bus_and_cycle_lane.PNG") // Add a valid image file path
                         },
                 new Question { Text = "What will be affected if the road surface becomes soft in very hot weather?", Options = new List<string> { "The suspension", "The fuel consumption", "The exhaust emissions", "The tyre grip" }, CorrectOptionIndex = 3 },
                 new Question { Text = "Which vehicles are least likely to be affected by side wind?", Options = new List<string> { "Cyclists", "Cars", "Motorcyclists", "High-sided vehicles" }, CorrectOptionIndex = 1 },
@@ -619,7 +619,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Minimum speed 30 mph", "Maximum speed 30 mph", "End of minimum speed", "End of maximum speed" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\End_of_minimum_speed.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\End_of_minimum_speed.PNG") // Add a valid image file path
                         },
                 new Question { Text = "At an incident, how could you help a small child who isn't breathing?", Options = new List<string> { "Put them in the recovery position and slap their back", "Find their parents and explain what's happening", "Talk to them confidently until an ambulance arrives", "Open their airway and begin CPR" }, CorrectOptionIndex = 3 },
                 new Question { Text = "At an incident, a casualty isn't breathing. What should you do while helping them to start breathing again?", Options = new List<string> { "Open their airway", "Shake them firmly", "Roll them onto their side", "Put their arms across their chest" }, CorrectOptionIndex = 0 },
@@ -628,7 +628,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "They give directions to car parks", "They give temporary directions during a diversion", "They give mandatory instructions", "They give motorway information" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\They_give_mandatory_instructions.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\They_give_mandatory_instructions.PNG") // Add a valid image file path
                         },
                 new Question { Text = "How can you avoid wheelspin when you're driving on an icy road?", Options = new List<string> { "Drive at a slow speed in the highest gear possible", "Brake gently and repeatedly", "Drive in a low gear at all times", "Use the parking brake if the wheels start to slip" }, CorrectOptionIndex = 0 },
                 new Question { Text = "What should you do if you become tired while you're driving on a motorway?", Options = new List<string> { "Increase your speed and turn up the radio volume", "Close all your windows and set the heating to warm", "Leave the motorway at the next exit and rest", "Pull up on the hard shoulder and change drivers" }, CorrectOptionIndex = 2 },
@@ -642,7 +642,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Tourist directions", "Minor roads", "Primary roads", "Motorway routes" },
                             CorrectOptionIndex = 0,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Tourist_directions.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Tourist_directions.PNG") // Add a valid image file path
                         },new Question { Text = "Your vehicle has broken down on a motorway. What should you do if you aren't able to get onto the hard shoulder?", Options = new List<string> { "Stand behind your vehicle to warn others", "Stop the traffic behind and ask for help", "Attempt to repair your vehicle quickly", "Switch on your hazard warning lights" }, CorrectOptionIndex = 3 },
                 new Question { Text = "Who's responsible for paying the vehicle tax?", Options = new List<string> { "The car dealer", "The registered keeper of the vehicle", "The Driver and Vehicle Licensing Agency (DVLA)", "The driver of the vehicle" }, CorrectOptionIndex = 1 },
                 new Question { Text = "What circumstances require you to notify the Driver and Vehicle Licensing Agency (DVLA)?", Options = new List<string> { "When you have to work abroad", "When your vehicle needs an MOT certificate", "When you lend your vehicle to someone", "When your health affects your driving" }, CorrectOptionIndex = 3 },
@@ -653,7 +653,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Mini-roundabout", "Roundabout", "No vehicles", "Ring road" },
                             CorrectOptionIndex = 1,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Roundabout.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Roundabout.PNG") // Add a valid image file path
                         },
                 new Question { Text = "You're driving on an open road in dry weather. What distance should you keep from the vehicle in front?", Options = new List<string> { "A two-second time gap", "Two metres (6 feet 6 inches)", "One car length", "Two car lengths" }, CorrectOptionIndex = 0 }
                 },
@@ -668,7 +668,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Six roads converge", "Multi-exit roundabout", "Risk of ice", "Place of historical interest" },
                             CorrectOptionIndex = 2,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Risk_of_ice.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Risk_of_ice.PNG") // Add a valid image file path
                         },
                     new Question { Text = "You're looking for somewhere to safely park your vehicle. Where would you choose to park?", Options = new List<string> { "At or near a bus stop", "On the approach to a level crossing", "In a designated parking space", "Near the brow of a hill" }, CorrectOptionIndex = 2 },
                     new Question { Text = "When may you sound your vehicle's horn?", Options = new List<string> { "To attract a friend's attention", "To give you right of way", "To warn others of your presence", "To make slower drivers move over" }, CorrectOptionIndex = 2 },
@@ -678,7 +678,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Give way to farm vehicles", "Wait at the barriers", "Wait at the crossroads", "Give way to trams" },
                             CorrectOptionIndex = 3,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Give_way_to_trams.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Give_way_to_trams.PNG") // Add a valid image file path
                         },
                     new Question { Text = "What's a Statutory Off-Road Notification (SORN)?", Options = new List<string> { "A notification to tell DVSA that a vehicle doesn't have a current MOT", "Information held by insurance companies to check a vehicle is insured", "A notification to tell DVLA that a vehicle isn't being used on the road", "Information kept by the police about the owner of a vehicle" }, CorrectOptionIndex = 2 },
                     new Question { Text = "What can you expect if you drive using rapid acceleration and heavy braking?", Options = new List<string> { "Increased road safety", "Reduced exhaust emissions", "Reduced pollution", "Increased fuel consumption" }, CorrectOptionIndex = 3 },
@@ -690,7 +690,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Road liable to flooding", "Steep hill downwards", "Quayside or river bank", "Uneven road surface" },
                             CorrectOptionIndex = 0,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Quayside_or_river_bank.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Quayside_or_river_bank.PNG") // Add a valid image file path
                         },
                     new Question { Text = "What do you need before you can legally use a motor vehicle on the road?", Options = new List<string> { "A vehicle handbook", "An appropriate driving licence", "Proof of your identity", "Breakdown cover" }, CorrectOptionIndex = 1 },
                     new Question { Text = "How should you signal if you're going straight ahead at a roundabout?", Options = new List<string> { "Signal left just after you pass the exit before the one you're going to take", "Signal right on the approach and then left to leave the roundabout", "Signal left after you leave the roundabout and enter the new road", "Signal right on the approach to the roundabout and keep the signal on" }, CorrectOptionIndex = 1 },
@@ -701,7 +701,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Route for buses", "Give way to trams", "Route for trams", "Give way to buses" },
                             CorrectOptionIndex = 1,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\Pictorial Questions\\Route_for_trams.PNG") // Add a valid image file path
+                            Image = Image.FromFile("Pictorial Questions\\Route_for_trams.PNG") // Add a valid image file path
                         },
                     new Question { Text = "You're following other vehicles in fog. You have your headlights on dipped beam. What else can you do to reduce the chances of being in a collision?", Options = new List<string> { "Keep a safe distance from the vehicle in front", "Keep up with the faster vehicles", "Use main beam instead of dipped headlights", "Keep close to the vehicle in front" }, CorrectOptionIndex = 0 },
                     new Question { Text = "A collision has just happened. An injured person is lying in a busy road. What's the first thing you should do?", Options = new List<string> { "Treat the person for shock", "Place them in the recovery position", "Warn other traffic", "Make sure the injured person is kept warm" }, CorrectOptionIndex = 2 },
@@ -714,7 +714,7 @@ namespace WinFormsApp1
                             Text = "What Sign is this?:",
                             Options = new List<string> { "Stop Sign", "Pause Sign", "Road Cross Sign", "No Parking Sign" },
                             CorrectOptionIndex = 0,
-                            Image = Image.FromFile("E:\\CLIENT\\WindowsFormsApp1\\STOP_SIGN_PIC.jpg") // Add a valid image file path
+                            Image = Image.FromFile("STOP_SIGN_PIC.jpg") // Add a valid image file path
                         },
                     new Question { Text = "Why should you allow extra room while overtaking a motorcyclist on a windy day?", Options = new List<string> { "The rider may be blown in front of you", "The rider may stop suddenly", "The rider may be travelling faster than normal", "The rider may turn off suddenly to get out of the wind" }, CorrectOptionIndex = 0 }
                 }
