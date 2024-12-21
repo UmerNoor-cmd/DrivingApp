@@ -88,6 +88,9 @@ namespace WinFormsApp1
             Controls.Clear();
 
             Size = new Size(450, 200);
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
 
             Label introLabel = new Label
             {
@@ -176,8 +179,11 @@ namespace WinFormsApp1
 
         private void LoadQuestion()
         {
-            Size = new Size(1078, 481);
 
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
+            Size = new Size(1078, 481);
 
             if (currentQuestionIndex >= selectedTest.Count)
             {
@@ -196,6 +202,7 @@ namespace WinFormsApp1
                 AutoSize = true,
                 Font = new Font("Arial", 10, FontStyle.Bold),
                 Location = new Point(10, 40),
+
             };
             Controls.Add(testLabel);
 
@@ -259,6 +266,9 @@ namespace WinFormsApp1
 
         private void Previous_Click(object? sender, EventArgs e)
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
             if (currentQuestionIndex > 0)
             {
                 currentQuestionIndex--;
@@ -268,6 +278,9 @@ namespace WinFormsApp1
 
         private void Next_Click(object? sender, EventArgs e)
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
             // Check if the current question is flagged
             if (flaggedQuestions.Contains(currentQuestionIndex))
             {
@@ -304,6 +317,9 @@ namespace WinFormsApp1
         private void ShowScore()
         {
             Controls.Clear();
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Settings_Page.GlobalBackgroundColor;
+            this.Font = new Font(this.Font.FontFamily, Settings_Page.GlobalFontSize, Settings_Page.GlobalFontStyle);
 
             // Save flagged questions to global data
             GlobalData.FlaggedQuestions[testNumber] = flaggedQuestions;
@@ -414,7 +430,9 @@ namespace WinFormsApp1
             };
             finishButton.Click += (s, e) =>
             {
-                ShowIntroduction(); // Return to introduction or main menu
+                MainPage nextForm = new MainPage();
+                nextForm.Show();
+                this.Hide(); // Return to introduction or main menu
             };
             scrollablePanel.Controls.Add(finishButton);
         }
@@ -538,6 +556,7 @@ namespace WinFormsApp1
     {
         new List<Question>
             {
+
                 new Question
                         {
                             Text = "What Sign is this?:",

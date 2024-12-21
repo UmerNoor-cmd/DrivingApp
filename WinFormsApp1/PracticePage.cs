@@ -323,6 +323,7 @@ namespace WinFormsApp1
 
         private void ShowIntroduction()
         {
+            Size = new Size(816, 489);
             // Clear the form
             Controls.Clear();
 

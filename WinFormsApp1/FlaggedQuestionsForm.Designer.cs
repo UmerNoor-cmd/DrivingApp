@@ -28,18 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Back = new Button();
             SuspendLayout();
+            // 
+            // Back
+            // 
+            Back.Location = new Point(12, 12);
+            Back.Name = "Back";
+            Back.Size = new Size(45, 25);
+            Back.TabIndex = 0;
+            Back.Text = "<";
+            Back.UseVisualStyleBackColor = true;
+            //Back.Click += Back_Click;
             // 
             // FlaggedQuestionsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1062, 632);
+            Controls.Add(Back);
             Name = "FlaggedQuestionsForm";
             Text = "Form1";
             ResumeLayout(false);
         }
 
         #endregion
+
+        private Button Back;
     }
 }

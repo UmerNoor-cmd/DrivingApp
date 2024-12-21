@@ -21,6 +21,7 @@ namespace WinFormsApp1
         {
             Controls.Clear();
 
+            
             // Create a panel for scrolling
             Panel scrollablePanel = new Panel
             {
@@ -53,6 +54,16 @@ namespace WinFormsApp1
                     Location = new Point(20, yPosition)
                 };
                 scrollablePanel.Controls.Add(noDataLabel);
+
+                Button closeButtonemp = new Button
+                {
+                    Text = "Close",
+                    Size = new Size(100, 30),
+                    Location = new Point((ClientSize.Width - 100) / 2, yPosition + 20)
+                };
+                closeButtonemp.Click += (s, e) => Close();
+                scrollablePanel.Controls.Add(closeButtonemp);
+
                 return;
             }
 
@@ -122,5 +133,6 @@ namespace WinFormsApp1
             // Adjust the size of the panel and form
             scrollablePanel.Size = new Size(ClientSize.Width, ClientSize.Height);
         }
+
     }
 }
